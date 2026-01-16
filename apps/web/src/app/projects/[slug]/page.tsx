@@ -5,8 +5,13 @@ import { projects } from "@/data/projects";
 
 type Params = { slug: string };
 
-export default function ProjectOverviewPage({ params }: { params: Params }) {
-  const project = projects.find((item) => item.slug === params.slug);
+export default async function ProjectOverviewPage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
 
   if (!project) {
     return notFound();

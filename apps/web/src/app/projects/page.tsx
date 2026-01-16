@@ -17,7 +17,11 @@ export default function ProjectsPage() {
         <h1>Projects</h1>
         <div className="project-grid">
           {projects.map((project) => (
-            <article className="project-card" key={project.slug}>
+            <Link
+              className="project-card"
+              href={`/projects/${project.slug}`}
+              key={project.slug}
+            >
               {project.cover ? (
                 <div className="project-image">
                   <Image
@@ -28,9 +32,7 @@ export default function ProjectsPage() {
                   />
                 </div>
               ) : null}
-              <h2 className="project-title">
-                <Link href={`/projects/${project.slug}`}>{project.title}</Link>
-              </h2>
+              <h2 className="project-title">{project.title}</h2>
               <p className="project-summary">{project.summary}</p>
               <div className="project-tags">
                 {project.tags.map((tag) => (
@@ -39,7 +41,7 @@ export default function ProjectsPage() {
                   </span>
                 ))}
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </main>
