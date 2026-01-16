@@ -8,6 +8,7 @@ export default function Home() {
         <nav className="nav">
           <Link href="/">Home</Link>
           <Link href="/projects">Projects</Link>
+          <Link href="/fun">Fun</Link>
         </nav>
       </header>
       <main className="hero">
