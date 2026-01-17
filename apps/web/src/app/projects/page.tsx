@@ -1,20 +1,34 @@
+import type { Metadata } from "next";
+import PageLayout from "@/components/PageLayout";
 import ProjectCard from "@/components/ProjectCard";
-import SiteHeader from "@/components/SiteHeader";
 import { getProjects } from "@/lib/get-projects";
+
+export const metadata: Metadata = {
+  title: "Projects — VivishkosHub",
+  description: "Browse live experiments, prototypes, and work in progress.",
+};
 
 export default function ProjectsPage() {
   const projects = getProjects();
   return (
-    <div className="page">
-      <SiteHeader />
+    <PageLayout>
       <main className="projects">
-        <h1>Projects</h1>
-        <div className="project-grid">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
+        <div className="container projects-inner">
+          <h1>Projects</h1>
+          {projects.length ? (
+            <div className="project-grid">
+              {projects.map((project) => (
+                <ProjectCard key={project.slug} project={project} />
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <h2>No projects yet</h2>
+              <p>New experiments are brewing. Check back soon.</p>
+            </div>
+          )}
         </div>
       </main>
-    </div>
+    </PageLayout>
   );
 }

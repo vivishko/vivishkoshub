@@ -23,9 +23,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <h2 className="project-title">{project.title}</h2>
       <p className="project-summary">{project.summary}</p>
       <div className="project-tags">
-        {project.tags.map((tag) => (
-          <Tag className="project-tag" key={tag} label={tag} />
-        ))}
+        {project.tags.length ? (
+          project.tags.map((tag) => (
+            <Tag className="project-tag" key={tag} label={tag} />
+          ))
+        ) : (
+          <Tag className="project-tag is-empty" label="No tags yet" />
+        )}
       </div>
     </Link>
   );

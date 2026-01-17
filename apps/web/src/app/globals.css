@@ -6,8 +6,14 @@
   --pink: #f3c5ff;
   --card: #ffffff;
   --shadow: 0 24px 60px rgba(23, 19, 34, 0.12);
-  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Helvetica Neue Condensed", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
   --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bg: #fdfcfe;
+  --text: #171322;
+  --muted: rgba(23, 19, 34, 0.7);
+  --accent: #7a4cf5;
+  --container: 1120px;
 }
 
 html,
@@ -17,10 +23,11 @@ body {
 }
 
 body {
-  color: var(--ink);
-  background: var(--white);
+  color: var(--text);
+  background: var(--bg);
   font-family: var(--font-body), "Trebuchet MS", "Lucida Sans Unicode",
     "Lucida Grande", sans-serif;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -36,6 +43,25 @@ a {
   text-decoration: none;
 }
 
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 36px);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+p {
+  color: var(--muted);
+}
+
 .page {
   min-height: 100vh;
   display: flex;
@@ -43,15 +69,18 @@ a {
 }
 
 .site-header {
+  padding: 28px 0 12px;
+}
+
+.site-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 28px 8vw 12px;
   gap: 24px;
 }
 
 .logo {
-  font-family: var(--font-display), "Georgia", serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: clamp(20px, 2vw, 28px);
   letter-spacing: 0.05em;
 }
@@ -71,8 +100,8 @@ a {
 }
 
 .nav a:hover {
-  color: var(--violet);
-  border-color: var(--violet);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .home {
@@ -81,16 +110,18 @@ a {
 }
 
 .hero {
-  padding: 80px 8vw 90px;
+  padding: 80px 0 90px;
+}
+
+.hero-inner {
   display: grid;
   gap: 28px;
   max-width: 1000px;
 }
 
 .hero h1 {
-  font-family: var(--font-display), "Georgia", serif;
   font-size: clamp(40px, 6vw, 72px);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .hero p {
@@ -134,14 +165,17 @@ a {
 }
 
 .projects {
-  padding: 40px 8vw 80px;
+  padding: 40px 0 80px;
+}
+
+.projects-inner {
   display: grid;
   gap: 28px;
 }
 
 .projects h1 {
-  font-family: var(--font-display), "Georgia", serif;
   font-size: clamp(34px, 4vw, 56px);
+  letter-spacing: 0.02em;
 }
 
 .project-grid {
@@ -198,7 +232,7 @@ a {
 }
 
 .project-title {
-  font-family: var(--font-display), "Georgia", serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 22px;
   font-weight: 600;
 }
@@ -223,8 +257,16 @@ a {
   letter-spacing: 0.08em;
 }
 
+.project-tag.is-empty {
+  background: rgba(23, 19, 34, 0.04);
+  border-style: dashed;
+}
+
 .project-detail {
-  padding: 40px 8vw 90px;
+  padding: 40px 0 90px;
+}
+
+.project-detail-inner {
   display: grid;
   gap: 28px;
 }
@@ -237,7 +279,7 @@ a {
 }
 
 .project-detail-header h1 {
-  font-family: var(--font-display), "Georgia", serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: clamp(34px, 4vw, 56px);
 }
 
@@ -283,7 +325,7 @@ a {
 
 .project-link:hover {
   transform: translateY(-2px);
-  border-color: var(--violet);
+  border-color: var(--accent);
 }
 
 .project-link.repo {
@@ -309,7 +351,7 @@ a {
 
 .project-body h2 {
   margin: 14px 0 6px;
-  font-family: var(--font-display), "Georgia", serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 22px;
 }
 
@@ -336,7 +378,7 @@ a {
 }
 
 .project-gallery h2 {
-  font-family: var(--font-display), "Georgia", serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 22px;
 }
 
@@ -434,13 +476,16 @@ a {
 }
 
 .fun-section {
-  padding: 60px 8vw 90px;
+  padding: 60px 0 90px;
+}
+
+.fun-section-inner {
   display: grid;
   gap: 32px;
 }
 
 .fun-intro h1 {
-  font-family: var(--font-display), "Georgia", serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: clamp(34px, 4vw, 56px);
 }
 
@@ -500,7 +545,7 @@ a {
 }
 
 .fun-card h2 {
-  font-family: var(--font-display), "Georgia", serif;
+  font-family: var(--font-display), "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 22px;
 }
 
@@ -522,13 +567,62 @@ a {
   font-size: 12px;
 }
 
+.empty-state {
+  border-radius: 20px;
+  border: 1px dashed rgba(23, 19, 34, 0.2);
+  padding: 28px;
+  display: grid;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow);
+}
+
+.empty-state h2 {
+  font-size: 24px;
+}
+
+.site-footer {
+  margin-top: auto;
+  padding: 32px 0 48px;
+}
+
+.site-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(23, 19, 34, 0.08);
+  padding-top: 20px;
+}
+
+.footer-title {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 @media (max-width: 768px) {
-  .site-header {
+  .site-header-inner {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .project-detail-header {
     grid-template-columns: 1fr;
+  }
+
+  .site-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

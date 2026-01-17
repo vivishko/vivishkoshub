@@ -1,5 +1,6 @@
+import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import SiteHeader from "@/components/SiteHeader";
+import PageLayout from "@/components/PageLayout";
 import Tag from "@/components/Tag";
 
 const funItems = [
@@ -37,40 +38,50 @@ const funItems = [
   },
 ];
 
+export const metadata: Metadata = {
+  title: "Fun Lab — VivishkosHub",
+  description: "Playful experiments, mini games, and quick visual sketches.",
+};
+
 export default function FunPage() {
   return (
-    <div className="page fun">
-      <SiteHeader />
+    <PageLayout className="fun">
       <main className="fun-section">
-        <div className="fun-intro">
-          <h1>Fun Lab</h1>
-          <p>
-            Mini games, playful visuals, and experimental sketches. These are
-            quick explorations designed to surprise and delight.
-          </p>
-        </div>
-        <div className="fun-grid">
-          {funItems.map((item) => (
-            <article
-              className="fun-card"
-              key={item.title}
-              style={{ "--accent": item.accent } as CSSProperties}
-            >
-              <div className="fun-card-top">
-                <span className="fun-chip">{item.type}</span>
-                <span className="fun-status">{item.status}</span>
-              </div>
-              <h2>{item.title}</h2>
-              <p>{item.summary}</p>
-              <div className="fun-tags">
-                {item.tags.map((tag) => (
-                  <Tag className="fun-tag" key={tag} label={tag} />
-                ))}
-              </div>
-            </article>
-          ))}
+        <div className="container fun-section-inner">
+          <div className="fun-intro">
+            <h1>Fun Lab</h1>
+            <p>
+              Mini games, playful visuals, and experimental sketches. These are
+              quick explorations designed to surprise and delight.
+            </p>
+          </div>
+          <div className="fun-grid">
+            {funItems.map((item) => (
+              <article
+                className="fun-card"
+                key={item.title}
+                style={{ "--accent": item.accent } as CSSProperties}
+              >
+                <div className="fun-card-top">
+                  <span className="fun-chip">{item.type}</span>
+                  <span className="fun-status">{item.status}</span>
+                </div>
+                <h2>{item.title}</h2>
+                <p>{item.summary}</p>
+                <div className="fun-tags">
+                  {item.tags.length ? (
+                    item.tags.map((tag) => (
+                      <Tag className="fun-tag" key={tag} label={tag} />
+                    ))
+                  ) : (
+                    <Tag className="fun-tag" label="No tags yet" />
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </main>
-    </div>
+    </PageLayout>
   );
 }
