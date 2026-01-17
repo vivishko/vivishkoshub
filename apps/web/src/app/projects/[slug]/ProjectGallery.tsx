@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type TouchEvent } from "react";
 import Image from "next/image";
 
 type GalleryImage = { src: string; alt: string };
@@ -11,6 +11,7 @@ export default function ProjectGallery({
   images: GalleryImage[];
 }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const isOpen = activeIndex !== null;
 
   const activeImage = useMemo(() => {
@@ -18,27 +19,59 @@ export default function ProjectGallery({
     return images[activeIndex];
   }, [activeIndex, images]);
 
+  const closeLightbox = useCallback(() => {
+    setActiveIndex(null);
+  }, []);
+
+  const goNext = useCallback(() => {
+    setActiveIndex((prev) => (prev === null ? 0 : (prev + 1) % images.length));
+  }, [images.length]);
+
+  const goPrev = useCallback(() => {
+    setActiveIndex((prev) =>
+      prev === null ? images.length - 1 : (prev - 1 + images.length) % images.length,
+    );
+  }, [images.length]);
+
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setActiveIndex(null);
+        closeLightbox();
       }
       if (event.key === "ArrowRight") {
-        setActiveIndex((prev) =>
-          prev === null ? 0 : (prev + 1) % images.length,
-        );
+        goNext();
       }
       if (event.key === "ArrowLeft") {
-        setActiveIndex((prev) =>
-          prev === null ? images.length - 1 : (prev - 1 + images.length) % images.length,
-        );
+        goPrev();
       }
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [images.length, isOpen]);
+  }, [closeLightbox, goNext, goPrev, isOpen]);
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    const start = touchStart.current;
+    if (!start) return;
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+    touchStart.current = null;
+
+    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) {
+        goPrev();
+      } else {
+        goNext();
+      }
+    }
+  };
 
   useEffect(() => {
     const openFromHash = () => {
@@ -73,11 +106,17 @@ export default function ProjectGallery({
       </div>
 
       {isOpen && activeImage ? (
-        <div className="lightbox" role="dialog" aria-modal="true">
+        <div
+          className="lightbox"
+          role="dialog"
+          aria-modal="true"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <button
             type="button"
             className="lightbox-close"
-            onClick={() => setActiveIndex(null)}
+            onClick={closeLightbox}
             aria-label="Close gallery"
           >
             ×
@@ -85,13 +124,7 @@ export default function ProjectGallery({
           <button
             type="button"
             className="lightbox-nav"
-            onClick={() =>
-              setActiveIndex(
-                activeIndex === null
-                  ? 0
-                  : (activeIndex - 1 + images.length) % images.length,
-              )
-            }
+            onClick={goPrev}
             aria-label="Previous image"
           >
             ←
@@ -107,11 +140,7 @@ export default function ProjectGallery({
           <button
             type="button"
             className="lightbox-nav"
-            onClick={() =>
-              setActiveIndex(
-                activeIndex === null ? 0 : (activeIndex + 1) % images.length,
-              )
-            }
+            onClick={goNext}
             aria-label="Next image"
           >
             →
