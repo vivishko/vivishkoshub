@@ -124,6 +124,13 @@ p {
   letter-spacing: 0.02em;
 }
 
+.hero h1,
+.projects h1,
+.project-detail-header h1,
+.fun-intro h1 {
+  line-height: 1.05;
+}
+
 .hero p {
   font-size: clamp(18px, 2vw, 22px);
   max-width: 560px;
@@ -612,6 +619,14 @@ p {
 }
 
 @media (max-width: 768px) {
+  body {
+    line-height: 1.7;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+  }
+
   .site-header-inner {
     flex-direction: column;
     align-items: flex-start;
