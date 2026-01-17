@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
 
 const funItems = [
   {
@@ -39,14 +39,7 @@ const funItems = [
 export default function FunPage() {
   return (
     <div className="page fun">
-      <header className="site-header">
-        <div className="logo">VivishkosHub</div>
-        <nav className="nav">
-          <Link href="/">Home</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/fun">Fun</Link>
-        </nav>
-      </header>
+      <SiteHeader />
       <main className="fun-section">
         <div className="fun-intro">
           <h1>Fun Lab</h1>

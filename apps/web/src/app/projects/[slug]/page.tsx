@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
 import { projects } from "@/data/projects";
+import SiteHeader from "@/components/SiteHeader";
 import ProjectGallery from "./ProjectGallery";
 import ProjectUsageLink from "./ProjectUsageLink";
 
@@ -22,14 +22,7 @@ export default async function ProjectOverviewPage({
 
   return (
     <div className="page">
-      <header className="site-header">
-        <div className="logo">VivishkosHub</div>
-        <nav className="nav">
-          <Link href="/">Home</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/fun">Fun</Link>
-        </nav>
-      </header>
+      <SiteHeader />
       <main className="project-detail">
         <div className="project-detail-header">
           <div>

@@ -1,18 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import SiteHeader from "@/components/SiteHeader";
 import { projects } from "@/data/projects";
 
 export default function ProjectsPage() {
   return (
     <div className="page">
-      <header className="site-header">
-        <div className="logo">VivishkosHub</div>
-        <nav className="nav">
-          <Link href="/">Home</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/fun">Fun</Link>
-        </nav>
-      </header>
+      <SiteHeader />
       <main className="projects">
         <h1>Projects</h1>
         <div className="project-grid">
