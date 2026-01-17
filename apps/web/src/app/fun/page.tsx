@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import SiteHeader from "@/components/SiteHeader";
+import Tag from "@/components/Tag";
 
 const funItems = [
   {
@@ -63,9 +64,7 @@ export default function FunPage() {
               <p>{item.summary}</p>
               <div className="fun-tags">
                 {item.tags.map((tag) => (
-                  <span className="fun-tag" key={tag}>
-                    {tag}
-                  </span>
+                  <Tag className="fun-tag" key={tag} label={tag} />
                 ))}
               </div>
             </article>

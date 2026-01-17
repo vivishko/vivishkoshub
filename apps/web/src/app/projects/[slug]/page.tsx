@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
-import { projects } from "@/data/projects";
+import { getProjectBySlug } from "@/lib/get-projects";
 import SiteHeader from "@/components/SiteHeader";
 import ProjectGallery from "./ProjectGallery";
 import ProjectUsageLink from "./ProjectUsageLink";
@@ -14,7 +14,7 @@ export default async function ProjectOverviewPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const project = projects.find((item) => item.slug === slug);
+  const project = getProjectBySlug(slug);
   const gallery = project?.gallery ?? (project?.cover ? [project.cover] : []);
 
   if (!project) {
