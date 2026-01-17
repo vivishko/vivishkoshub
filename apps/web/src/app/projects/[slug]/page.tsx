@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
 import { projects } from "@/data/projects";
@@ -30,7 +31,13 @@ export default async function ProjectOverviewPage({
           </div>
           {project.cover ? (
             <div className="project-detail-cover is-icon">
-              <img src={project.cover.src} alt={project.cover.alt} />
+              <Image
+                src={project.cover.src}
+                alt={project.cover.alt}
+                width={400}
+                height={400}
+                sizes="(max-width: 768px) 38vw, 220px"
+              />
             </div>
           ) : null}
         </div>
