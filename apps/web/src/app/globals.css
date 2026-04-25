@@ -85,6 +85,14 @@ p {
   letter-spacing: 0.05em;
 }
 
+.artemis-page .logo {
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.artemis-page .logo:hover {
+  color: var(--accent);
+}
+
 .nav {
   display: flex;
   gap: 18px;
@@ -517,6 +525,13 @@ p {
   gap: 16px;
   position: relative;
   overflow: hidden;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fun-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 70px rgba(23, 19, 34, 0.16);
 }
 
 .fun-card::before {
@@ -593,6 +608,622 @@ p {
   padding: 32px 0 48px;
 }
 
+.artemis-page {
+  background: radial-gradient(circle at 16% 12%, #132642 0%, #081527 38%, #040c16 100%);
+}
+
+.artemis-main {
+  flex: 1;
+  display: grid;
+  align-items: stretch;
+  padding: 14px clamp(10px, 2vw, 26px) 22px;
+}
+
+.artemis-shell {
+  position: relative;
+  width: min(1480px, 100%);
+  min-height: calc(100vh - 172px);
+  margin: 0 auto;
+  border-radius: 22px;
+  border: 1px solid rgba(107, 181, 241, 0.34);
+  overflow: hidden;
+  box-shadow: 0 32px 90px rgba(2, 11, 26, 0.72), 0 0 0 1px rgba(76, 125, 171, 0.2) inset;
+}
+
+.artemis-shell.is-expanded {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  border-radius: 0;
+  z-index: 80;
+}
+
+.artemis-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.artemis-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: grab;
+}
+
+.artemis-canvas canvas:active {
+  cursor: grabbing;
+}
+
+.artemis-loading {
+  width: min(1480px, 100%);
+  min-height: calc(100vh - 172px);
+  margin: 0 auto;
+  border-radius: 22px;
+  border: 1px solid rgba(107, 181, 241, 0.34);
+  display: grid;
+  place-items: center;
+  color: #8fd8ff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.artemis-hud-frame {
+  position: absolute;
+  inset: 24px 24px 176px;
+  z-index: 4;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: minmax(280px, 336px) 1fr minmax(280px, 336px);
+  align-items: start;
+  gap: 20px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.artemis-hud-column {
+  width: 100%;
+  display: grid;
+  gap: 18px;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden auto;
+  padding-right: 4px;
+}
+
+.artemis-hud-column-right {
+  grid-column: 3;
+}
+
+.artemis-panel {
+  background: linear-gradient(160deg, rgba(2, 18, 34, 0.86), rgba(3, 10, 18, 0.78));
+  border: 1px solid rgba(93, 155, 211, 0.3);
+  backdrop-filter: blur(9px);
+  border-radius: 14px;
+  color: #d4efff;
+  pointer-events: auto;
+  box-shadow: 0 1px 0 rgba(124, 190, 248, 0.18) inset;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease, grid-template-rows 0.2s ease;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+}
+
+.artemis-panel:hover {
+  border-color: rgba(138, 209, 255, 0.48);
+  box-shadow: 0 0 0 1px rgba(114, 192, 249, 0.18) inset, 0 6px 14px rgba(3, 19, 36, 0.28);
+}
+
+.artemis-panel.is-prominent {
+  border-color: rgba(143, 215, 255, 0.52);
+  box-shadow: 0 0 0 1px rgba(132, 214, 255, 0.2) inset, 0 8px 20px rgba(0, 19, 42, 0.34);
+}
+
+.artemis-panel-header {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 8px 8px 6px;
+}
+
+.artemis-panel-header:focus-visible {
+  outline: 1px solid rgba(134, 213, 255, 0.75);
+  outline-offset: -1px;
+}
+
+.artemis-panel-body {
+  overflow: hidden auto;
+  min-height: 0;
+  opacity: 1;
+  padding: 0 8px 8px;
+  transition: opacity 0.2s ease, padding 0.2s ease;
+  line-height: 1.35;
+  scrollbar-width: thin;
+}
+
+.artemis-panel.is-collapsed {
+  grid-template-rows: auto 0fr;
+}
+
+.artemis-panel.is-collapsed .artemis-panel-body {
+  opacity: 0;
+  pointer-events: none;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.artemis-panel-title {
+  color: #c6ecff;
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.artemis-telemetry-block {
+  display: grid;
+  gap: 4px;
+}
+
+.artemis-telemetry-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.artemis-telemetry-label {
+  color: rgba(193, 230, 255, 0.7);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  white-space: nowrap;
+}
+
+.artemis-telemetry-value {
+  color: #e5f7ff;
+  font-family: "Menlo", "Monaco", "Consolas", monospace;
+  font-size: 11px;
+  text-align: right;
+  word-break: break-word;
+}
+
+.artemis-met-value {
+  font-family: "Menlo", "Monaco", "Consolas", monospace;
+  font-size: clamp(15px, 1.45vw, 20px);
+  letter-spacing: 0.03em;
+  color: #e6fbff;
+  text-align: right;
+}
+
+.artemis-telemetry-row.is-utc .artemis-telemetry-value {
+  font-size: 10px;
+  color: rgba(184, 221, 246, 0.82);
+}
+
+.artemis-telemetry-divider {
+  margin: 1px 0 3px;
+  border-top: 1px solid rgba(110, 173, 229, 0.2);
+}
+
+.artemis-telemetry-value.is-accent {
+  color: #81deff;
+}
+
+.artemis-event-title {
+  font-size: 15px;
+  color: #ddf7ff;
+  line-height: 1.25;
+}
+
+.artemis-event-meta {
+  margin-top: 4px;
+  font-size: 11px;
+  color: rgba(179, 219, 244, 0.75);
+}
+
+.artemis-spark-grid {
+  display: grid;
+  gap: 5px;
+}
+
+.artemis-spark-grid > div {
+  display: grid;
+  gap: 4px;
+}
+
+.artemis-spark-grid span {
+  color: rgba(192, 228, 250, 0.82);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.artemis-spark-grid svg {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: rgba(5, 16, 28, 0.72);
+  border: 1px solid rgba(90, 151, 205, 0.24);
+}
+
+.artemis-spark-grid path {
+  fill: none;
+  stroke: #74dcff;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.artemis-trend-indicator {
+  stroke: rgba(176, 234, 255, 0.9);
+  stroke-width: 1.2;
+}
+
+.artemis-mini-map svg {
+  width: 100%;
+  height: clamp(132px, 18vh, 180px);
+  display: block;
+  border-radius: 10px;
+  background: rgba(5, 16, 28, 0.78);
+  border: 1px solid rgba(90, 151, 205, 0.35);
+}
+
+.artemis-mini-map .track {
+  stroke: #6fe0ff;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.artemis-mini-map .current {
+  fill: #8cf8ff;
+}
+
+.artemis-mini-map .axis-earth {
+  fill: #79b5ff;
+}
+
+.artemis-mini-map .axis-moon {
+  fill: #d8e7ff;
+}
+
+.artemis-mini-map p {
+  color: #a7d8ff;
+  margin-top: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.artemis-mini-map .axis-label {
+  font-size: 6px;
+  fill: rgba(194, 231, 252, 0.9);
+  letter-spacing: 0.03em;
+}
+
+.artemis-mini-map .axis-label.is-current {
+  fill: #90e9ff;
+}
+
+.artemis-mini-map .artemis-panel-body {
+  max-height: 210px;
+}
+
+.artemis-guidance-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.artemis-guidance-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.artemis-guidance-list dt {
+  color: rgba(193, 230, 255, 0.74);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.artemis-guidance-list dd {
+  margin: 0;
+  color: #d7f4ff;
+  font-size: 11px;
+  font-family: "Menlo", "Monaco", "Consolas", monospace;
+  text-align: right;
+}
+
+.artemis-guidance-list dd.is-accent {
+  color: #81deff;
+}
+
+.artemis-events-panel ol {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.artemis-events-panel li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid rgba(98, 165, 222, 0.2);
+  border-radius: 10px;
+  padding: 6px 7px;
+  color: #caebff;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.artemis-events-panel li.is-active {
+  border-color: rgba(103, 230, 255, 0.84);
+  background: rgba(46, 118, 170, 0.2);
+}
+
+.artemis-events-panel time {
+  color: #9ed2ff;
+  font-family: "Menlo", "Monaco", "Consolas", monospace;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.artemis-events-panel .artemis-panel-body {
+  max-height: min(34vh, 340px);
+}
+
+.artemis-guidance-panel .artemis-panel-body {
+  max-height: min(30vh, 270px);
+}
+
+.artemis-controls {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(940px, calc(100% - 48px));
+  bottom: 16px;
+  z-index: 5;
+  border-radius: 14px;
+  border: 1px solid rgba(100, 173, 234, 0.36);
+  background: linear-gradient(170deg, rgba(3, 17, 31, 0.92), rgba(4, 12, 20, 0.86));
+  backdrop-filter: blur(10px);
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.artemis-controls-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  flex-wrap: wrap;
+}
+
+.artemis-strip-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(129, 192, 238, 0.34);
+  flex: 0 0 auto;
+}
+
+.artemis-controls .button.artemis-control-btn {
+  border-color: rgba(100, 173, 234, 0.45);
+  color: #c7e9ff;
+  background: rgba(21, 52, 80, 0.24);
+  box-shadow: none;
+  font-size: 11px;
+  padding: 6px 9px;
+  min-width: 58px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.artemis-controls .button.artemis-control-btn:hover {
+  background: rgba(49, 114, 171, 0.26);
+  border-color: rgba(120, 195, 255, 0.8);
+}
+
+.artemis-controls .button.artemis-control-btn.is-active {
+  background: rgba(67, 156, 232, 0.34);
+  border-color: rgba(109, 198, 255, 0.95);
+  color: #e2f8ff;
+}
+
+.artemis-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.artemis-speed-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.artemis-controls-timeline {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  width: 100%;
+}
+
+.artemis-controls input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 9px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1f3348, #335f83);
+  border: 1px solid rgba(90, 151, 205, 0.42);
+}
+
+.artemis-controls input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #7de6ff;
+  border: 2px solid #d7f7ff;
+}
+
+.artemis-controls input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #7de6ff;
+  border: 2px solid #d7f7ff;
+}
+
+.artemis-controls {
+  transition: border-color 0.2s ease;
+}
+
+.artemis-controls:hover {
+  border-color: rgba(128, 205, 255, 0.72);
+}
+
+.artemis-expand-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid rgba(100, 173, 234, 0.62);
+  background: rgba(7, 23, 40, 0.86);
+  color: #d9f4ff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 8;
+  pointer-events: auto;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.artemis-expand-btn:hover {
+  background: rgba(21, 60, 95, 0.86);
+  border-color: rgba(140, 210, 255, 0.9);
+}
+
+.artemis-expand-icon {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.artemis-expand-arrow {
+  position: absolute;
+  font-size: 7px;
+  line-height: 1;
+}
+
+.artemis-expand-arrow-a {
+  left: 0;
+  bottom: 0;
+}
+
+.artemis-expand-arrow-b {
+  right: 0;
+  top: 0;
+}
+
+.artemis-label-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.artemis-label {
+  position: absolute;
+  transform: none;
+  color: #c3edff;
+  background: rgba(4, 18, 33, 0.75);
+  border: 1px solid rgba(115, 185, 238, 0.45);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.artemis-label::before {
+  content: none;
+}
+
+.artemis-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.artemis-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #bbdfff;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.artemis-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.artemis-toggle-switch {
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(103, 172, 224, 0.5);
+  background: rgba(31, 66, 96, 0.6);
+  position: relative;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.artemis-toggle-switch::after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  left: 2px;
+  top: 1.5px;
+  background: #c4ebff;
+  transition: transform 0.2s ease;
+}
+
+.artemis-toggle input:checked + .artemis-toggle-switch {
+  background: rgba(65, 149, 217, 0.72);
+  border-color: rgba(148, 222, 255, 0.96);
+}
+
+.artemis-toggle input:checked + .artemis-toggle-switch::after {
+  transform: translateX(15px);
+}
+
 .site-footer-inner {
   display: flex;
   flex-wrap: wrap;
@@ -639,5 +1270,78 @@ p {
   .site-footer-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .artemis-shell,
+  .artemis-loading {
+    min-height: calc(100vh - 172px);
+    border-radius: 14px;
+  }
+
+  .artemis-main {
+    padding: 8px 8px 12px;
+  }
+
+  .artemis-hud-frame {
+    inset: 12px 12px 132px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    overflow-y: auto;
+  }
+
+  .artemis-hud-column,
+  .artemis-hud-column-right {
+    grid-column: 1;
+    width: min(340px, 100%);
+    gap: 10px;
+  }
+
+  .artemis-label-layer {
+    display: none;
+  }
+
+  .artemis-controls {
+    left: 8px;
+    transform: none;
+    width: calc(100% - 16px);
+    bottom: 8px;
+    padding: 8px;
+  }
+
+  .artemis-controls-strip {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .artemis-controls-timeline {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1180px) {
+  .artemis-hud-frame {
+    inset: 18px 18px 168px;
+    grid-template-columns: minmax(248px, 310px) 1fr minmax(248px, 310px);
+    gap: 14px;
+  }
+
+  .artemis-controls {
+    width: min(940px, calc(100% - 36px));
+  }
+}
+
+@media (max-width: 980px) {
+  .artemis-hud-frame {
+    inset: 16px 16px 168px;
+    grid-template-columns: minmax(256px, 340px);
+    justify-content: start;
+    gap: 12px;
+    overflow-y: auto;
+  }
+
+  .artemis-hud-column,
+  .artemis-hud-column-right {
+    grid-column: 1;
+    width: min(340px, calc(100vw - 52px));
   }
 }
