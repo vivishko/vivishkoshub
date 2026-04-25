@@ -13,10 +13,13 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@types/three": "^0.184.0",
     "marked": "^15.0.7",
     "next": "16.1.2",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "three": "^0.184.0",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@types/node": "^20",

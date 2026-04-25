@@ -18,6 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/fun`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/artemis-2-visualization`,
+      lastModified: new Date(),
+    },
     ...projects.map((project) => ({
       url: `${baseUrl}/projects/${project.slug}`,
       lastModified: new Date(),
