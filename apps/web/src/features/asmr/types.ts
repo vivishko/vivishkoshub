@@ -36,6 +36,7 @@ export type Trigger = {
 
 export type TriggerFilters = {
   query: string;
-  primaryCategory: TriggerPrimaryCategory | "all";
-  tag: string | "all";
+  categories: TriggerPrimaryCategory[];
+  tags: string[];
+  favoriteOnly: boolean;
 };

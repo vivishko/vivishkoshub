@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import PageLayout from "@/components/PageLayout";
 import AsmrCatalogClient from "@/features/asmr/components/AsmrCatalogClient";
 import { triggerPrimaryCategoryOrder } from "@/features/asmr/data/categories";
@@ -17,11 +18,12 @@ export default function AsmrPage() {
           <section className="asmr-hero">
             <div>
               <p className="asmr-kicker">ASMR MK</p>
-              <h1>Каталог ASMR-триггеров</h1>
+              <h1>ASMR-триггеры</h1>
               <p>
-                База популярных аудиальных, визуальных, roleplay и personal attention триггеров
-                для быстрого поиска идей и связей между форматами.
+                ASMR-триггеры — это звуки, визуальные действия или ситуации, которые могут
+                вызывать расслабление, ощущение заботы, сонливость или характерные мурашки.
               </p>
+              <p>Изучайте категории, смотрите примеры и сохраняйте понравившиеся триггеры.</p>
             </div>
             <div className="asmr-stats" aria-label="Сводка">
               <span>
@@ -35,7 +37,9 @@ export default function AsmrPage() {
             </div>
           </section>
 
-          <AsmrCatalogClient triggers={triggers} />
+          <Suspense fallback={<div className="asmr-empty-state">Загрузка каталога...</div>}>
+            <AsmrCatalogClient triggers={triggers} />
+          </Suspense>
         </div>
       </main>
     </PageLayout>

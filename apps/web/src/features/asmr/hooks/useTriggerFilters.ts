@@ -6,8 +6,9 @@ import type { Trigger, TriggerFilters } from "@/features/asmr/types";
 
 const initialFilters: TriggerFilters = {
   query: "",
-  primaryCategory: "all",
-  tag: "all",
+  categories: [],
+  tags: [],
+  favoriteOnly: false,
 };
 
 export function useTriggerFilters(triggers: Trigger[]) {
@@ -21,8 +22,9 @@ export function useTriggerFilters(triggers: Trigger[]) {
   const filteredTriggers = useMemo(() => {
     return filterTriggers(triggers, {
       query: filters.query,
-      categories: filters.primaryCategory === "all" ? [] : [filters.primaryCategory],
-      tags: filters.tag === "all" ? [] : [filters.tag],
+      categories: filters.categories,
+      tags: filters.tags,
+      favoriteOnly: filters.favoriteOnly,
     });
   }, [filters, triggers]);
 
