@@ -9,7 +9,7 @@ import { useFavoriteTriggers } from "@/features/asmr/hooks/useFavoriteTriggers";
 import { filterTriggers } from "@/features/asmr/lib/filter-triggers";
 import type { Trigger, TriggerFilters as TriggerFiltersState, TriggerPrimaryCategory } from "@/features/asmr/types";
 
-type AsmrCatalogClientProps = {
+type TriggerCatalogProps = {
   triggers: Trigger[];
 };
 
@@ -68,7 +68,7 @@ function buildSearchParams(filters: TriggerFiltersState) {
   return nextSearchParams;
 }
 
-export default function AsmrCatalogClient({ triggers }: AsmrCatalogClientProps) {
+export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

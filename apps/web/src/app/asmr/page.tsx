@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import PageLayout from "@/components/PageLayout";
-import AsmrCatalogClient from "@/features/asmr/components/AsmrCatalogClient";
+import TriggerCatalog from "@/features/asmr/components/TriggerCatalog";
 import { triggerPrimaryCategoryOrder } from "@/features/asmr/data/categories";
 import { triggers } from "@/features/asmr/data/triggers";
 
@@ -38,7 +38,7 @@ export default function AsmrPage() {
           </section>
 
           <Suspense fallback={<div className="asmr-empty-state">Загрузка каталога...</div>}>
-            <AsmrCatalogClient triggers={triggers} />
+            <TriggerCatalog triggers={triggers} />
           </Suspense>
         </div>
       </main>
