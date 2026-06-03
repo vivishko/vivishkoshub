@@ -108,7 +108,7 @@ export default async function AsmrTriggerPage({
                     if (asmrtist?.url) {
                       return (
                         <a
-                          className="asmr-tag"
+                          className="asmr-tag asmr-tag-asmrtist"
                           href={asmrtist.url}
                           key={asmrtistName}
                           rel="noreferrer"
@@ -119,7 +119,7 @@ export default async function AsmrTriggerPage({
                       );
                     }
 
-                    return <TriggerTag key={asmrtistName} tag={asmrtistName} />;
+                    return <TriggerTag key={asmrtistName} tag={asmrtistName} variant="asmrtist" />;
                   })}
                 </div>
               </section>
@@ -133,6 +133,7 @@ export default async function AsmrTriggerPage({
                     href={`/asmr?tag=${encodeURIComponent(tag)}${locale === "en" ? "&lang=en" : ""}`}
                     key={tag}
                     tag={tag}
+                    variant="tag"
                   />
                 ))}
               </div>
@@ -142,9 +143,7 @@ export default async function AsmrTriggerPage({
               <h2>{copy.aliases}</h2>
               <div className="asmr-tags">
                 {trigger.aliases.map((alias) => (
-                  <span className="asmr-tag" key={alias}>
-                    {alias}
-                  </span>
+                  <TriggerTag key={alias} tag={alias} variant="alias" />
                 ))}
               </div>
             </section>

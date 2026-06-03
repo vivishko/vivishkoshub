@@ -966,8 +966,27 @@ p {
 .asmr-tag {
   min-height: 26px;
   padding: 5px 9px;
+  border: 1px solid transparent;
   background: rgba(196, 167, 231, 0.14);
   font-size: 12px;
+}
+
+.asmr-tag-tag {
+  border-color: rgba(124, 95, 168, 0.22);
+  background: rgba(196, 167, 231, 0.16);
+  color: #5f438a;
+}
+
+.asmr-tag-asmrtist {
+  border-color: rgba(233, 168, 199, 0.36);
+  background: rgba(233, 168, 199, 0.16);
+  color: #9b426b;
+}
+
+.asmr-tag-alias {
+  border-color: rgba(92, 151, 130, 0.28);
+  background: rgba(92, 151, 130, 0.12);
+  color: #2f6f59;
 }
 
 .asmr-video-link {
