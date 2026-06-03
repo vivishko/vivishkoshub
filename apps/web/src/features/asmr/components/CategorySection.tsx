@@ -2,11 +2,12 @@
 
 import TriggerCard from "@/features/asmr/components/TriggerCard";
 import { triggerPrimaryCategories } from "@/features/asmr/data/categories";
-import type { Trigger, TriggerPrimaryCategory } from "@/features/asmr/types";
+import type { AsmrLocale, Trigger, TriggerPrimaryCategory } from "@/features/asmr/types";
 
 type CategorySectionProps = {
   category: TriggerPrimaryCategory;
   triggers: Trigger[];
+  locale: AsmrLocale;
   isCollapsed: boolean;
   favoriteTriggerIdSet: Set<string>;
   onToggleCollapsed: (category: TriggerPrimaryCategory) => void;
@@ -16,6 +17,7 @@ type CategorySectionProps = {
 export default function CategorySection({
   category,
   triggers,
+  locale,
   isCollapsed,
   favoriteTriggerIdSet,
   onToggleCollapsed,
@@ -29,7 +31,7 @@ export default function CategorySection({
         onClick={() => onToggleCollapsed(category)}
         type="button"
       >
-        <span>{triggerPrimaryCategories[category]}</span>
+        <span>{triggerPrimaryCategories[category][locale]}</span>
         <span className="asmr-category-toggle-meta">
           <small>{triggers.length}</small>
           <span className="asmr-category-toggle-icon" aria-hidden="true">
@@ -44,6 +46,7 @@ export default function CategorySection({
             <TriggerCard
               isFavorite={favoriteTriggerIdSet.has(trigger.id)}
               key={trigger.id}
+              locale={locale}
               onToggleFavorite={onToggleFavorite}
               trigger={trigger}
             />

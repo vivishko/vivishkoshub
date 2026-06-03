@@ -1,9 +1,11 @@
 import Link from "next/link";
-import type { Trigger } from "@/features/asmr/types";
+import type { AsmrLocale, Trigger } from "@/features/asmr/types";
 
 type RelatedTriggersProps = {
   currentTrigger: Trigger;
+  locale: AsmrLocale;
   triggers: Trigger[];
+  title: string;
 };
 
 function getRelatedTriggers(currentTrigger: Trigger, triggers: Trigger[]) {
@@ -25,7 +27,12 @@ function getRelatedTriggers(currentTrigger: Trigger, triggers: Trigger[]) {
   return [...relatedById, ...fallbackTriggers].slice(0, 6);
 }
 
-export default function RelatedTriggers({ currentTrigger, triggers }: RelatedTriggersProps) {
+export default function RelatedTriggers({
+  currentTrigger,
+  locale,
+  triggers,
+  title,
+}: RelatedTriggersProps) {
   const relatedTriggers = getRelatedTriggers(currentTrigger, triggers);
 
   if (!relatedTriggers.length) {
@@ -34,16 +41,16 @@ export default function RelatedTriggers({ currentTrigger, triggers }: RelatedTri
 
   return (
     <section className="asmr-detail-section">
-      <h2>Похожие триггеры</h2>
+      <h2>{title}</h2>
       <div className="asmr-related-grid">
         {relatedTriggers.map((relatedTrigger) => (
           <Link
             className="asmr-related-card"
-            href={`/asmr/triggers/${relatedTrigger.slug}`}
+            href={`/asmr/triggers/${relatedTrigger.slug}${locale === "en" ? "?lang=en" : ""}`}
             key={relatedTrigger.id}
           >
             <span>{relatedTrigger.title}</span>
-            <small>{relatedTrigger.shortDescription.ru}</small>
+            <small>{relatedTrigger.shortDescription[locale]}</small>
           </Link>
         ))}
       </div>

@@ -711,6 +711,39 @@ p {
   font-size: clamp(17px, 2vw, 20px);
 }
 
+.asmr-hero-side {
+  display: grid;
+  gap: 12px;
+  justify-items: end;
+}
+
+.asmr-language-switcher {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--asmr-border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.asmr-language-switcher button {
+  min-width: 42px;
+  min-height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--asmr-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.asmr-language-switcher button.is-active {
+  background: rgba(196, 167, 231, 0.22);
+  color: #6f529b;
+}
+
 .asmr-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(104px, 1fr));
@@ -1380,6 +1413,10 @@ p {
   .asmr-hero,
   .asmr-toolbar {
     grid-template-columns: 1fr;
+  }
+
+  .asmr-hero-side {
+    justify-items: stretch;
   }
 
   .asmr-stats {

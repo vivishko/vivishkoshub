@@ -5,11 +5,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import CategorySection from "@/features/asmr/components/CategorySection";
 import TriggerFilters from "@/features/asmr/components/TriggerFilters";
 import { triggerPrimaryCategories, triggerPrimaryCategoryOrder } from "@/features/asmr/data/categories";
+import { asmrCopy } from "@/features/asmr/data/i18n";
 import { useFavoriteTriggers } from "@/features/asmr/hooks/useFavoriteTriggers";
 import { filterTriggers } from "@/features/asmr/lib/filter-triggers";
-import type { Trigger, TriggerFilters as TriggerFiltersState, TriggerPrimaryCategory } from "@/features/asmr/types";
+import type { AsmrLocale, Trigger, TriggerFilters as TriggerFiltersState, TriggerPrimaryCategory } from "@/features/asmr/types";
 
 type TriggerCatalogProps = {
+  locale: AsmrLocale;
   triggers: Trigger[];
 };
 
@@ -50,9 +52,13 @@ function getFiltersSignature(filters: TriggerFiltersState) {
   });
 }
 
-function buildSearchParams(filters: TriggerFiltersState) {
+function buildSearchParams(filters: TriggerFiltersState, locale: AsmrLocale) {
   const nextSearchParams = new URLSearchParams();
   const trimmedQuery = filters.query.trim();
+
+  if (locale === "en") {
+    nextSearchParams.set("lang", locale);
+  }
 
   if (trimmedQuery) {
     nextSearchParams.set("q", trimmedQuery);
@@ -68,7 +74,8 @@ function buildSearchParams(filters: TriggerFiltersState) {
   return nextSearchParams;
 }
 
-export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
+export default function TriggerCatalog({ locale, triggers }: TriggerCatalogProps) {
+  const copy = asmrCopy[locale];
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -102,7 +109,7 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
   }, [urlFilters, urlFiltersSignature]);
 
   useEffect(() => {
-    const nextSearchParams = buildSearchParams(filters);
+    const nextSearchParams = buildSearchParams(filters, locale);
     const nextQueryString = nextSearchParams.toString();
     const currentQueryString = searchParams.toString();
 
@@ -111,7 +118,7 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
         scroll: false,
       });
     }
-  }, [filters, pathname, router, searchParams]);
+  }, [filters, locale, pathname, router, searchParams]);
 
   const filteredTriggers = useMemo(
     () =>
@@ -134,13 +141,13 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
   );
 
   const activeFilterChips = [
-    ...(filters.query.trim() ? [{ key: "query", label: `Поиск: ${filters.query.trim()}` }] : []),
+    ...(filters.query.trim() ? [{ key: "query", label: `${copy.search}: ${filters.query.trim()}` }] : []),
     ...filters.categories.map((category) => ({
       key: `category-${category}`,
-      label: triggerPrimaryCategories[category],
+      label: triggerPrimaryCategories[category][locale],
     })),
     ...filters.tags.map((tag) => ({ key: `tag-${tag}`, label: `#${tag}` })),
-    ...(filters.favoriteOnly ? [{ key: "favorites", label: "Только избранные" }] : []),
+    ...(filters.favoriteOnly ? [{ key: "favorites", label: copy.favoriteOnly }] : []),
   ];
 
   const resetFilters = useCallback(() => {
@@ -192,10 +199,10 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
   const favoriteEmptyState = filters.favoriteOnly && favoriteTriggerIds.length === 0;
 
   return (
-    <section className="asmr-catalog" aria-label="Каталог ASMR-триггеров">
+    <section className="asmr-catalog" aria-label={copy.heroTitle}>
       <div className="asmr-mobile-search">
         <label className="asmr-search">
-          <span>Поиск</span>
+          <span>{copy.search}</span>
           <input
             onChange={(event) =>
               setFilters((currentFilters) => ({
@@ -203,7 +210,7 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
                 query: event.target.value,
               }))
             }
-            placeholder="scratching, whispering..."
+            placeholder={copy.searchPlaceholder}
             type="search"
             value={filters.query}
           />
@@ -213,15 +220,16 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
           onClick={() => setIsMobileFiltersOpen(true)}
           type="button"
         >
-          Фильтры
+          {copy.filters}
         </button>
       </div>
 
       <div className="asmr-catalog-layout">
-        <aside className="asmr-desktop-filters" aria-label="Фильтры каталога">
+        <aside className="asmr-desktop-filters" aria-label={copy.filterCatalog}>
           <TriggerFilters
             favoriteCount={favoriteTriggerIds.length}
             filters={filters}
+            locale={locale}
             onChange={setFilters}
             onClearFavorites={clearFavoriteTriggers}
             onReset={resetFilters}
@@ -232,8 +240,10 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
 
         <div className="asmr-catalog-results">
           <div className="asmr-count">
-            Найдено: <strong>{filteredTriggers.length}</strong> из {triggers.length}
-            <span>В избранном: {favoriteTriggerIds.length}</span>
+            {copy.totalFound}: <strong>{filteredTriggers.length}</strong> / {triggers.length}
+            <span>
+              {copy.favoriteCount}: {favoriteTriggerIds.length}
+            </span>
           </div>
 
           {activeFilterChips.length ? (
@@ -245,20 +255,20 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
                 </button>
               ))}
               <button className="asmr-reset-chip" onClick={resetFilters} type="button">
-                Сбросить фильтры
+                {copy.resetFilters}
               </button>
             </div>
           ) : null}
 
           {favoriteEmptyState ? (
             <div className="asmr-empty-state">
-              <h2>Пока нет избранных триггеров</h2>
-              <p>Нажимайте на сердечко у карточек, чтобы сохранить понравившиеся триггеры.</p>
+              <h2>{copy.emptyFavoritesTitle}</h2>
+              <p>{copy.emptyFavoritesDescription}</p>
             </div>
           ) : filteredTriggers.length === 0 ? (
             <div className="asmr-empty-state">
-              <h2>Ничего не найдено</h2>
-              <p>Попробуйте убрать часть фильтров или изменить поисковый запрос.</p>
+              <h2>{copy.emptyResultsTitle}</h2>
+              <p>{copy.emptyResultsDescription}</p>
             </div>
           ) : (
             <div className="asmr-category-list">
@@ -268,6 +278,7 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
                   favoriteTriggerIdSet={favoriteTriggerIdSet}
                   isCollapsed={collapsedCategories.includes(group.category)}
                   key={group.category}
+                  locale={locale}
                   onToggleCollapsed={toggleCollapsedCategory}
                   onToggleFavorite={toggleFavoriteTrigger}
                   triggers={group.triggers}
@@ -279,9 +290,9 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
       </div>
 
       {isMobileFiltersOpen ? (
-        <div className="asmr-filter-drawer" role="dialog" aria-label="Фильтры" aria-modal="true">
+        <div className="asmr-filter-drawer" role="dialog" aria-label={copy.filters} aria-modal="true">
           <button
-            aria-label="Закрыть фильтры"
+            aria-label={copy.closeFilters}
             className="asmr-filter-backdrop"
             onClick={() => setIsMobileFiltersOpen(false)}
             type="button"
@@ -290,6 +301,7 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
             <TriggerFilters
               favoriteCount={favoriteTriggerIds.length}
               filters={filters}
+              locale={locale}
               onChange={setFilters}
               onClearFavorites={clearFavoriteTriggers}
               onClose={() => setIsMobileFiltersOpen(false)}

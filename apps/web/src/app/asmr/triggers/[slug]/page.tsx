@@ -8,11 +8,16 @@ import TriggerTag from "@/features/asmr/components/TriggerTag";
 import YoutubeEmbed from "@/features/asmr/components/YoutubeEmbed";
 import { asmrtistByName } from "@/features/asmr/data/asmrtists";
 import { triggerPrimaryCategories } from "@/features/asmr/data/categories";
+import { asmrCopy, getAsmrLocale } from "@/features/asmr/data/i18n";
 import { triggers } from "@/features/asmr/data/triggers";
 import { getTriggerBySlug } from "@/features/asmr/lib/get-triggers";
 
 type Params = {
   slug: string;
+};
+
+type SearchParams = {
+  lang?: string | string[];
 };
 
 export function generateStaticParams() {
@@ -22,11 +27,14 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({
+  searchParams,
   params,
 }: {
   params: Promise<Params>;
+  searchParams: Promise<SearchParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const locale = getAsmrLocale((await searchParams).lang);
   const trigger = getTriggerBySlug(slug);
 
   if (!trigger) {
@@ -37,16 +45,21 @@ export async function generateMetadata({
 
   return {
     title: `${trigger.title} — ASMR Trigger Catalog`,
-    description: trigger.shortDescription.ru,
+    description: trigger.shortDescription[locale],
   };
 }
 
 export default async function AsmrTriggerPage({
+  searchParams,
   params,
 }: {
   params: Promise<Params>;
+  searchParams: Promise<SearchParams>;
 }) {
   const { slug } = await params;
+  const locale = getAsmrLocale((await searchParams).lang);
+  const copy = asmrCopy[locale];
+  const catalogHref = locale === "en" ? "/asmr?lang=en" : "/asmr";
   const trigger = getTriggerBySlug(slug);
 
   if (!trigger) {
@@ -57,32 +70,37 @@ export default async function AsmrTriggerPage({
     <PageLayout className="asmr-page">
       <main className="asmr-main">
         <div className="container asmr-detail-inner">
-          <Link className="asmr-back-link" href="/asmr">
-            ← Назад к каталогу
+          <Link className="asmr-back-link" href={catalogHref}>
+            {copy.backToCatalog}
           </Link>
 
           <article className="asmr-detail">
             <header className="asmr-detail-header">
               <div>
                 <p className="asmr-kicker">
-                  {triggerPrimaryCategories[trigger.primaryCategory]} · {trigger.secondaryCategory}
+                  {triggerPrimaryCategories[trigger.primaryCategory][locale]} ·{" "}
+                  {trigger.secondaryCategory}
                 </p>
                 <div className="asmr-detail-title-row">
                   <h1>{trigger.title}</h1>
-                  <TriggerDetailFavorite triggerId={trigger.id} triggerTitle={trigger.title} />
+                  <TriggerDetailFavorite
+                    locale={locale}
+                    triggerId={trigger.id}
+                    triggerTitle={trigger.title}
+                  />
                 </div>
-                <p>{trigger.shortDescription.ru}</p>
+                <p>{trigger.shortDescription[locale]}</p>
               </div>
             </header>
 
             <section className="asmr-detail-section">
-              <h2>Описание</h2>
-              <p>{trigger.description.ru}</p>
+              <h2>{copy.description}</h2>
+              <p>{trigger.description[locale]}</p>
             </section>
 
             {trigger.asmrtists.length ? (
               <section className="asmr-detail-section">
-                <h2>ASMRtists</h2>
+                <h2>{copy.asmrtists}</h2>
                 <div className="asmr-tags">
                   {trigger.asmrtists.map((asmrtistName) => {
                     const asmrtist = asmrtistByName.get(asmrtistName);
@@ -108,16 +126,20 @@ export default async function AsmrTriggerPage({
             ) : null}
 
             <section className="asmr-detail-section">
-              <h2>Теги</h2>
+              <h2>{copy.tags}</h2>
               <div className="asmr-tags">
                 {trigger.tags.map((tag) => (
-                  <TriggerTag href={`/asmr?tag=${encodeURIComponent(tag)}`} key={tag} tag={tag} />
+                  <TriggerTag
+                    href={`/asmr?tag=${encodeURIComponent(tag)}${locale === "en" ? "&lang=en" : ""}`}
+                    key={tag}
+                    tag={tag}
+                  />
                 ))}
               </div>
             </section>
 
             <section className="asmr-detail-section">
-              <h2>Алиасы</h2>
+              <h2>{copy.aliases}</h2>
               <div className="asmr-tags">
                 {trigger.aliases.map((alias) => (
                   <span className="asmr-tag" key={alias}>
@@ -129,7 +151,7 @@ export default async function AsmrTriggerPage({
 
             {trigger.youtubeVideos.length ? (
               <section className="asmr-detail-section">
-                <h2>YouTube</h2>
+                <h2>{copy.youtube}</h2>
                 <div className="asmr-youtube-grid">
                   {trigger.youtubeVideos.slice(0, 3).map((video) => (
                     <YoutubeEmbed key={video.id} video={video} />
@@ -138,7 +160,12 @@ export default async function AsmrTriggerPage({
               </section>
             ) : null}
 
-            <RelatedTriggers currentTrigger={trigger} triggers={triggers} />
+            <RelatedTriggers
+              currentTrigger={trigger}
+              locale={locale}
+              title={copy.relatedTriggers}
+              triggers={triggers}
+            />
           </article>
         </div>
       </main>

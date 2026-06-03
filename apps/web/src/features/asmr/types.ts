@@ -6,6 +6,8 @@ export type TriggerPrimaryCategory =
   | "imagined-touch"
   | "object-focused";
 
+export type AsmrLocale = "ru" | "en";
+
 export type YoutubeVideo = {
   id: string;
   title: string;

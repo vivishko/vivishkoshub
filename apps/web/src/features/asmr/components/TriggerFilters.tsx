@@ -1,10 +1,12 @@
 "use client";
 
 import { triggerPrimaryCategories, triggerPrimaryCategoryOrder } from "@/features/asmr/data/categories";
-import type { TriggerFilters as TriggerFiltersState } from "@/features/asmr/types";
+import { asmrCopy } from "@/features/asmr/data/i18n";
+import type { AsmrLocale, TriggerFilters as TriggerFiltersState } from "@/features/asmr/types";
 
 type TriggerFiltersProps = {
   filters: TriggerFiltersState;
+  locale: AsmrLocale;
   resultCount: number;
   tags: string[];
   favoriteCount: number;
@@ -22,6 +24,7 @@ function toggleValue(values: string[], value: string) {
 
 export default function TriggerFilters({
   filters,
+  locale,
   favoriteCount,
   resultCount,
   tags,
@@ -30,22 +33,24 @@ export default function TriggerFilters({
   onClose,
   onReset,
 }: TriggerFiltersProps) {
+  const copy = asmrCopy[locale];
+
   return (
     <div className="asmr-filter-panel">
       <div className="asmr-filter-panel-header">
-        <h2>Фильтры</h2>
+        <h2>{copy.filters}</h2>
         {onClose ? (
           <button className="asmr-filter-close" onClick={onClose} type="button">
-            Закрыть
+            {copy.close}
           </button>
         ) : null}
       </div>
 
       <label className="asmr-search">
-        <span>Поиск</span>
+        <span>{copy.search}</span>
         <input
           onChange={(event) => onChange({ ...filters, query: event.target.value })}
-          placeholder="scratching, whispering..."
+          placeholder={copy.searchPlaceholder}
           type="search"
           value={filters.query}
         />
@@ -57,11 +62,11 @@ export default function TriggerFilters({
           onChange={(event) => onChange({ ...filters, favoriteOnly: event.target.checked })}
           type="checkbox"
         />
-        <span>Только избранные</span>
+        <span>{copy.favoriteOnly}</span>
       </label>
 
       <fieldset className="asmr-filter-group">
-        <legend>Категории</legend>
+        <legend>{copy.filterCategories}</legend>
         <div className="asmr-choice-list">
           {triggerPrimaryCategoryOrder.map((category) => (
             <label className="asmr-check-row" key={category}>
@@ -75,14 +80,14 @@ export default function TriggerFilters({
                 }
                 type="checkbox"
               />
-              <span>{triggerPrimaryCategories[category]}</span>
+              <span>{triggerPrimaryCategories[category][locale]}</span>
             </label>
           ))}
         </div>
       </fieldset>
 
       <fieldset className="asmr-filter-group">
-        <legend>Теги</legend>
+        <legend>{copy.tags}</legend>
         <div className="asmr-choice-list asmr-tag-choice-list">
           {tags.map((tag) => (
             <label className="asmr-check-row" key={tag}>
@@ -99,7 +104,7 @@ export default function TriggerFilters({
 
       <div className="asmr-filter-actions">
         <button className="asmr-secondary-button" onClick={onReset} type="button">
-          Сбросить фильтры
+          {copy.resetFilters}
         </button>
         <button
           className="asmr-secondary-button"
@@ -107,11 +112,11 @@ export default function TriggerFilters({
           onClick={onClearFavorites}
           type="button"
         >
-          Сбросить избранное
+          {copy.clearFavorites}
         </button>
         {onClose ? (
           <button className="asmr-primary-button" onClick={onClose} type="button">
-            Показать результаты ({resultCount})
+            {copy.showResults} ({resultCount})
           </button>
         ) : null}
       </div>
