@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { triggers } from "@/features/asmr/data/triggers";
 import { getProjects } from "@/lib/get-projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -22,6 +23,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/artemis-2-visualization`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/asmr`,
+      lastModified: new Date(),
+    },
+    ...triggers.map((trigger) => ({
+      url: `${baseUrl}/asmr/triggers/${trigger.slug}`,
+      lastModified: new Date(),
+    })),
     ...projects.map((project) => ({
       url: `${baseUrl}/projects/${project.slug}`,
       lastModified: new Date(),
