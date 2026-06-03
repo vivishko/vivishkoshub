@@ -2,7 +2,23 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-const STORAGE_KEY = "asmr.favoriteTriggerIds";
+export const STORAGE_KEY = "asmr.favoriteTriggerIds";
+
+function removeStoredFavoriteTriggerIds() {
+  try {
+    window.localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    return;
+  }
+}
+
+function normalizeFavoriteTriggerIds(value: unknown) {
+  if (!Array.isArray(value) || !value.every((item) => typeof item === "string")) {
+    return null;
+  }
+
+  return Array.from(new Set(value));
+}
 
 function readFavoriteTriggerIds(): string[] {
   if (typeof window === "undefined") {
@@ -17,20 +33,16 @@ function readFavoriteTriggerIds(): string[] {
     }
 
     const parsedValue: unknown = JSON.parse(storedValue);
+    const triggerIds = normalizeFavoriteTriggerIds(parsedValue);
 
-    if (!Array.isArray(parsedValue) || !parsedValue.every((item) => typeof item === "string")) {
-      window.localStorage.removeItem(STORAGE_KEY);
+    if (!triggerIds) {
+      removeStoredFavoriteTriggerIds();
       return [];
     }
 
-    return parsedValue as string[];
+    return triggerIds;
   } catch {
-    try {
-      window.localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      return [];
-    }
-
+    removeStoredFavoriteTriggerIds();
     return [];
   }
 }
