@@ -7,6 +7,8 @@ type TriggerFiltersProps = {
   filters: TriggerFiltersState;
   resultCount: number;
   tags: string[];
+  favoriteCount: number;
+  onClearFavorites: () => void;
   onChange: (filters: TriggerFiltersState) => void;
   onClose?: () => void;
   onReset: () => void;
@@ -20,8 +22,10 @@ function toggleValue(values: string[], value: string) {
 
 export default function TriggerFilters({
   filters,
+  favoriteCount,
   resultCount,
   tags,
+  onClearFavorites,
   onChange,
   onClose,
   onReset,
@@ -96,6 +100,14 @@ export default function TriggerFilters({
       <div className="asmr-filter-actions">
         <button className="asmr-secondary-button" onClick={onReset} type="button">
           Сбросить фильтры
+        </button>
+        <button
+          className="asmr-secondary-button"
+          disabled={favoriteCount === 0}
+          onClick={onClearFavorites}
+          type="button"
+        >
+          Сбросить избранное
         </button>
         {onClose ? (
           <button className="asmr-primary-button" onClick={onClose} type="button">

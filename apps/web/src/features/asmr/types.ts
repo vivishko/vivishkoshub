@@ -13,6 +13,12 @@ export type YoutubeVideo = {
   url: string;
 };
 
+export type Asmrtist = {
+  id: string;
+  name: string;
+  url?: string;
+};
+
 export type Trigger = {
   id: string;
   slug: string;
@@ -38,5 +44,6 @@ export type TriggerFilters = {
   query: string;
   categories: TriggerPrimaryCategory[];
   tags: string[];
+  asmrtists: string[];
   favoriteOnly: boolean;
 };

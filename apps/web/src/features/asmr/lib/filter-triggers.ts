@@ -1,9 +1,11 @@
+import { getAsmrtistId } from "@/features/asmr/data/asmrtists";
 import type { Trigger, TriggerPrimaryCategory } from "@/features/asmr/types";
 
 export type TriggerFilterOptions = {
   query?: string;
   categories?: TriggerPrimaryCategory[];
   tags?: string[];
+  asmrtists?: string[];
   favoriteOnly?: boolean;
   favoriteTriggerIds?: string[];
 };
@@ -20,6 +22,7 @@ function getSearchableTriggerText(trigger: Trigger) {
     trigger.secondaryCategory,
     ...trigger.tags,
     ...trigger.aliases,
+    ...trigger.asmrtists,
   ]
     .join(" ")
     .toLowerCase();
@@ -29,6 +32,7 @@ export function filterTriggers(triggers: Trigger[], filters: TriggerFilterOption
   const normalizedQuery = filters.query?.trim().toLowerCase() ?? "";
   const categories = filters.categories ?? [];
   const tags = filters.tags ?? [];
+  const asmrtists = filters.asmrtists ?? [];
   const favoriteTriggerIdSet = new Set(filters.favoriteTriggerIds ?? []);
 
   return triggers.filter((trigger) => {
@@ -38,9 +42,12 @@ export function filterTriggers(triggers: Trigger[], filters: TriggerFilterOption
     const categoryMatches =
       categories.length === 0 || categories.includes(trigger.primaryCategory);
     const tagMatches = tags.length === 0 || tags.some((tag) => trigger.tags.includes(tag));
+    const asmrtistMatches =
+      asmrtists.length === 0 ||
+      trigger.asmrtists.some((asmrtist) => asmrtists.includes(getAsmrtistId(asmrtist)));
     const favoriteMatches =
       !filters.favoriteOnly || favoriteTriggerIdSet.has(trigger.id);
 
-    return queryMatches && categoryMatches && tagMatches && favoriteMatches;
+    return queryMatches && categoryMatches && tagMatches && asmrtistMatches && favoriteMatches;
   });
 }

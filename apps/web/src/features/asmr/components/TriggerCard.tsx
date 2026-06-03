@@ -42,7 +42,6 @@ export default function TriggerCard({
             </span>
           ))}
         </div>
-        <span className="asmr-open-link">Открыть</span>
       </Link>
     </article>
   );

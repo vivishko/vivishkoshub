@@ -1161,6 +1161,11 @@ p {
   font-weight: 700;
 }
 
+.asmr-secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
 .asmr-filter-open,
 .asmr-primary-button {
   border-color: rgba(196, 167, 231, 0.78);
@@ -1278,6 +1283,12 @@ p {
   font-size: 18px;
 }
 
+.asmr-category-toggle-meta {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .asmr-category-toggle small {
   display: inline-grid;
   place-items: center;
@@ -1286,6 +1297,18 @@ p {
   border-radius: 999px;
   background: rgba(196, 167, 231, 0.16);
   color: #6f529b;
+}
+
+.asmr-category-toggle-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(196, 167, 231, 0.48);
+  border-radius: 999px;
+  color: #6f529b;
+  font-size: 17px;
+  line-height: 1;
 }
 
 .asmr-grid {
@@ -1304,22 +1327,6 @@ p {
 .asmr-card-subtitle {
   color: var(--asmr-muted);
   font-size: 13px;
-  font-weight: 700;
-}
-
-.asmr-open-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  min-height: 38px;
-  margin-top: auto;
-  padding: 8px 12px;
-  border: 1px solid rgba(233, 168, 199, 0.7);
-  border-radius: 8px;
-  background: rgba(233, 168, 199, 0.14);
-  color: var(--asmr-text);
-  font-size: 14px;
   font-weight: 700;
 }
 

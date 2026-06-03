@@ -30,7 +30,12 @@ export default function CategorySection({
         type="button"
       >
         <span>{triggerPrimaryCategories[category]}</span>
-        <small>{triggers.length}</small>
+        <span className="asmr-category-toggle-meta">
+          <small>{triggers.length}</small>
+          <span className="asmr-category-toggle-icon" aria-hidden="true">
+            {isCollapsed ? "▸" : "▾"}
+          </span>
+        </span>
       </button>
 
       {!isCollapsed ? (

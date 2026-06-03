@@ -87,7 +87,13 @@ export function useFavoriteTriggers() {
     });
   }, []);
 
+  const clearFavoriteTriggers = useCallback(() => {
+    setFavoriteTriggerIds([]);
+    writeFavoriteTriggerIds([]);
+  }, []);
+
   return {
+    clearFavoriteTriggers,
     favoriteTriggerIds,
     favoriteTriggerIdSet,
     toggleFavoriteTrigger,
