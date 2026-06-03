@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { filterTriggers } from "@/features/asmr/lib/filter-triggers";
 import type { Trigger, TriggerFilters } from "@/features/asmr/types";
 
 const initialFilters: TriggerFilters = {
@@ -18,27 +19,10 @@ export function useTriggerFilters(triggers: Trigger[]) {
   );
 
   const filteredTriggers = useMemo(() => {
-    const normalizedQuery = filters.query.trim().toLowerCase();
-
-    return triggers.filter((trigger) => {
-      const categoryMatches =
-        filters.primaryCategory === "all" || trigger.primaryCategory === filters.primaryCategory;
-      const tagMatches = filters.tag === "all" || trigger.tags.includes(filters.tag);
-      const searchableText = [
-        trigger.title,
-        trigger.shortDescription.ru,
-        trigger.shortDescription.en,
-        trigger.description.ru,
-        trigger.description.en,
-        trigger.secondaryCategory,
-        ...trigger.tags,
-        ...trigger.aliases,
-        ...trigger.asmrtists,
-      ]
-        .join(" ")
-        .toLowerCase();
-
-      return categoryMatches && tagMatches && searchableText.includes(normalizedQuery);
+    return filterTriggers(triggers, {
+      query: filters.query,
+      categories: filters.primaryCategory === "all" ? [] : [filters.primaryCategory],
+      tags: filters.tag === "all" ? [] : [filters.tag],
     });
   }, [filters, triggers]);
 
