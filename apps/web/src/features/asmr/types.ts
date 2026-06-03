@@ -44,6 +44,5 @@ export type TriggerFilters = {
   query: string;
   categories: TriggerPrimaryCategory[];
   tags: string[];
-  asmrtists: string[];
   favoriteOnly: boolean;
 };

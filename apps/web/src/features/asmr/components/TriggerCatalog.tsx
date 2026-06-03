@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import CategorySection from "@/features/asmr/components/CategorySection";
 import TriggerFilters from "@/features/asmr/components/TriggerFilters";
-import { asmrtistById } from "@/features/asmr/data/asmrtists";
 import { triggerPrimaryCategories, triggerPrimaryCategoryOrder } from "@/features/asmr/data/categories";
 import { useFavoriteTriggers } from "@/features/asmr/hooks/useFavoriteTriggers";
 import { filterTriggers } from "@/features/asmr/lib/filter-triggers";
@@ -18,7 +17,6 @@ const emptyFilters: TriggerFiltersState = {
   query: "",
   categories: [],
   tags: [],
-  asmrtists: [],
   favoriteOnly: false,
 };
 
@@ -39,7 +37,6 @@ function parseFiltersFromSearchParams(searchParams: URLSearchParams): TriggerFil
     query: searchParams.get("q") ?? "",
     categories,
     tags: splitParamValues(searchParams.getAll("tag")),
-    asmrtists: splitParamValues(searchParams.getAll("asmrtist")),
     favoriteOnly: searchParams.get("favorites") === "1",
   };
 }
@@ -49,7 +46,6 @@ function getFiltersSignature(filters: TriggerFiltersState) {
     query: filters.query,
     categories: [...filters.categories].sort(),
     tags: [...filters.tags].sort(),
-    asmrtists: [...filters.asmrtists].sort(),
     favoriteOnly: filters.favoriteOnly,
   });
 }
@@ -64,7 +60,6 @@ function buildSearchParams(filters: TriggerFiltersState) {
 
   filters.categories.forEach((category) => nextSearchParams.append("category", category));
   filters.tags.forEach((tag) => nextSearchParams.append("tag", tag));
-  filters.asmrtists.forEach((asmrtist) => nextSearchParams.append("asmrtist", asmrtist));
 
   if (filters.favoriteOnly) {
     nextSearchParams.set("favorites", "1");
@@ -145,10 +140,6 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
       label: triggerPrimaryCategories[category],
     })),
     ...filters.tags.map((tag) => ({ key: `tag-${tag}`, label: `#${tag}` })),
-    ...filters.asmrtists.map((asmrtistId) => ({
-      key: `asmrtist-${asmrtistId}`,
-      label: asmrtistById.get(asmrtistId)?.name ?? asmrtistId,
-    })),
     ...(filters.favoriteOnly ? [{ key: "favorites", label: "Только избранные" }] : []),
   ];
 
@@ -183,17 +174,6 @@ export default function TriggerCatalog({ triggers }: TriggerCatalogProps) {
         return {
           ...currentFilters,
           tags: currentFilters.tags.filter((currentTag) => currentTag !== tag),
-        };
-      }
-
-      if (key.startsWith("asmrtist-")) {
-        const asmrtist = key.replace("asmrtist-", "");
-
-        return {
-          ...currentFilters,
-          asmrtists: currentFilters.asmrtists.filter(
-            (currentAsmrtist) => currentAsmrtist !== asmrtist,
-          ),
         };
       }
 

@@ -6,7 +6,7 @@ import RelatedTriggers from "@/features/asmr/components/RelatedTriggers";
 import TriggerDetailFavorite from "@/features/asmr/components/TriggerDetailFavorite";
 import TriggerTag from "@/features/asmr/components/TriggerTag";
 import YoutubeEmbed from "@/features/asmr/components/YoutubeEmbed";
-import { asmrtistByName, getAsmrtistId } from "@/features/asmr/data/asmrtists";
+import { asmrtistByName } from "@/features/asmr/data/asmrtists";
 import { triggerPrimaryCategories } from "@/features/asmr/data/categories";
 import { triggers } from "@/features/asmr/data/triggers";
 import { getTriggerBySlug } from "@/features/asmr/lib/get-triggers";
@@ -86,15 +86,22 @@ export default async function AsmrTriggerPage({
                 <div className="asmr-tags">
                   {trigger.asmrtists.map((asmrtistName) => {
                     const asmrtist = asmrtistByName.get(asmrtistName);
-                    const asmrtistId = asmrtist?.id ?? getAsmrtistId(asmrtistName);
 
-                    return (
-                      <TriggerTag
-                        href={`/asmr?asmrtist=${encodeURIComponent(asmrtistId)}`}
-                        key={asmrtistName}
-                        tag={asmrtistName}
-                      />
-                    );
+                    if (asmrtist?.url) {
+                      return (
+                        <a
+                          className="asmr-tag"
+                          href={asmrtist.url}
+                          key={asmrtistName}
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          {asmrtistName}
+                        </a>
+                      );
+                    }
+
+                    return <TriggerTag key={asmrtistName} tag={asmrtistName} />;
                   })}
                 </div>
               </section>
