@@ -31,7 +31,7 @@ export default function TriggerCard({
         />
       </div>
 
-      <Link className="asmr-card-link" href={`/asmr/${trigger.slug}`}>
+      <Link className="asmr-card-link" href={`/asmr/triggers/${trigger.slug}`}>
         <span className="asmr-card-subtitle">{trigger.secondaryCategory}</span>
         <h3>{trigger.title}</h3>
         <p className="asmr-card-summary">{trigger.shortDescription.ru}</p>

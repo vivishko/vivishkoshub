@@ -995,6 +995,19 @@ p {
   line-height: 1.05;
 }
 
+.asmr-detail-title-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.asmr-detail-title-row .asmr-favorite-button {
+  width: 46px;
+  height: 46px;
+  margin-top: 6px;
+}
+
 .asmr-detail-header p:not(.asmr-kicker) {
   max-width: 680px;
   margin-top: 14px;
@@ -1021,6 +1034,36 @@ p {
 .asmr-related-grid {
   display: grid;
   gap: 10px;
+}
+
+.asmr-youtube-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.asmr-youtube-card {
+  display: grid;
+  gap: 10px;
+}
+
+.asmr-youtube-card iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+  background: #111827;
+}
+
+.asmr-youtube-card h3 {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.asmr-youtube-card p {
+  margin: 4px 0 0;
+  color: var(--asmr-muted);
+  font-size: 13px;
 }
 
 .asmr-video-list .asmr-video-link {
@@ -1368,6 +1411,10 @@ p {
   .asmr-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .asmr-youtube-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1394,6 +1441,14 @@ p {
   .asmr-favorite-button {
     width: 44px;
     height: 44px;
+  }
+
+  .asmr-detail-title-row {
+    grid-template-columns: 1fr;
+  }
+
+  .asmr-detail-title-row .asmr-favorite-button {
+    margin: 0;
   }
 }
 

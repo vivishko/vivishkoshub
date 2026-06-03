@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageLayout from "@/components/PageLayout";
+import RelatedTriggers from "@/features/asmr/components/RelatedTriggers";
+import TriggerDetailFavorite from "@/features/asmr/components/TriggerDetailFavorite";
+import TriggerTag from "@/features/asmr/components/TriggerTag";
+import YoutubeEmbed from "@/features/asmr/components/YoutubeEmbed";
 import { triggerPrimaryCategories } from "@/features/asmr/data/categories";
 import { triggers } from "@/features/asmr/data/triggers";
-import { getTriggerById, getTriggerBySlug } from "@/features/asmr/lib/get-triggers";
+import { getTriggerBySlug } from "@/features/asmr/lib/get-triggers";
 
 type Params = {
   slug: string;
@@ -48,16 +52,12 @@ export default async function AsmrTriggerPage({
     return notFound();
   }
 
-  const relatedTriggers = trigger.relatedTriggerIds
-    .map((triggerId) => getTriggerById(triggerId))
-    .filter((relatedTrigger) => relatedTrigger !== undefined);
-
   return (
     <PageLayout className="asmr-page">
       <main className="asmr-main">
         <div className="container asmr-detail-inner">
           <Link className="asmr-back-link" href="/asmr">
-            Назад в каталог
+            ← Назад к каталогу
           </Link>
 
           <article className="asmr-detail">
@@ -66,7 +66,10 @@ export default async function AsmrTriggerPage({
                 <p className="asmr-kicker">
                   {triggerPrimaryCategories[trigger.primaryCategory]} · {trigger.secondaryCategory}
                 </p>
-                <h1>{trigger.title}</h1>
+                <div className="asmr-detail-title-row">
+                  <h1>{trigger.title}</h1>
+                  <TriggerDetailFavorite triggerId={trigger.id} triggerTitle={trigger.title} />
+                </div>
                 <p>{trigger.shortDescription.ru}</p>
               </div>
             </header>
@@ -93,9 +96,7 @@ export default async function AsmrTriggerPage({
               <h2>Теги</h2>
               <div className="asmr-tags">
                 {trigger.tags.map((tag) => (
-                  <span className="asmr-tag" key={tag}>
-                    {tag}
-                  </span>
+                  <TriggerTag href={`/asmr?tag=${encodeURIComponent(tag)}`} key={tag} tag={tag} />
                 ))}
               </div>
             </section>
@@ -114,40 +115,15 @@ export default async function AsmrTriggerPage({
             {trigger.youtubeVideos.length ? (
               <section className="asmr-detail-section">
                 <h2>YouTube</h2>
-                <div className="asmr-video-list">
-                  {trigger.youtubeVideos.map((video) => (
-                    <a
-                      className="asmr-video-link"
-                      href={video.url}
-                      key={video.id}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      <span>{video.title}</span>
-                      <span>{video.channel}</span>
-                    </a>
+                <div className="asmr-youtube-grid">
+                  {trigger.youtubeVideos.slice(0, 3).map((video) => (
+                    <YoutubeEmbed key={video.id} video={video} />
                   ))}
                 </div>
               </section>
             ) : null}
 
-            {relatedTriggers.length ? (
-              <section className="asmr-detail-section">
-                <h2>Похожие триггеры</h2>
-                <div className="asmr-related-grid">
-                  {relatedTriggers.map((relatedTrigger) => (
-                    <Link
-                      className="asmr-related-card"
-                      href={`/asmr/${relatedTrigger.slug}`}
-                      key={relatedTrigger.id}
-                    >
-                      <span>{relatedTrigger.title}</span>
-                      <small>{relatedTrigger.shortDescription.ru}</small>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            ) : null}
+            <RelatedTriggers currentTrigger={trigger} triggers={triggers} />
           </article>
         </div>
       </main>
