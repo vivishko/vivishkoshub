@@ -4,6 +4,7 @@ import Link from "next/link";
 import FavoriteButton from "@/features/asmr/components/FavoriteButton";
 import { triggerPrimaryCategories } from "@/features/asmr/data/categories";
 import { asmrCopy } from "@/features/asmr/data/i18n";
+import { getLocalizedTriggerSecondaryCategory } from "@/features/asmr/data/trigger-localization";
 import type { AsmrLocale, Trigger } from "@/features/asmr/types";
 
 type TriggerCardProps = {
@@ -20,6 +21,7 @@ export default function TriggerCard({
   onToggleFavorite,
 }: TriggerCardProps) {
   const copy = asmrCopy[locale];
+  const secondaryCategory = getLocalizedTriggerSecondaryCategory(trigger, locale);
 
   return (
     <article className="asmr-card">
@@ -40,7 +42,7 @@ export default function TriggerCard({
         className="asmr-card-link"
         href={`/asmr/triggers/${trigger.slug}${locale === "en" ? "?lang=en" : ""}`}
       >
-        <span className="asmr-card-subtitle">{trigger.secondaryCategory}</span>
+        <span className="asmr-card-subtitle">{secondaryCategory}</span>
         <h3>{trigger.title}</h3>
         <p className="asmr-card-summary">{trigger.shortDescription[locale]}</p>
         <div className="asmr-tags" aria-label={copy.tags}>

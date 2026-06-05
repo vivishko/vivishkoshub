@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import PageLayout from "@/components/PageLayout";
+import AsmrLanguageSwitcher from "@/features/asmr/components/AsmrLanguageSwitcher";
 import RelatedTriggers from "@/features/asmr/components/RelatedTriggers";
 import TriggerDetailFavorite from "@/features/asmr/components/TriggerDetailFavorite";
 import TriggerTag from "@/features/asmr/components/TriggerTag";
@@ -10,6 +12,7 @@ import { asmrtistByName } from "@/features/asmr/data/asmrtists";
 import { triggerPrimaryCategories } from "@/features/asmr/data/categories";
 import { asmrCopy, getAsmrLocale } from "@/features/asmr/data/i18n";
 import { triggers } from "@/features/asmr/data/triggers";
+import { getLocalizedTriggerSecondaryCategory } from "@/features/asmr/data/trigger-localization";
 import { getTriggerBySlug } from "@/features/asmr/lib/get-triggers";
 
 type Params = {
@@ -66,20 +69,27 @@ export default async function AsmrTriggerPage({
     return notFound();
   }
 
+  const secondaryCategory = getLocalizedTriggerSecondaryCategory(trigger, locale);
+
   return (
     <PageLayout className="asmr-page">
       <main className="asmr-main">
         <div className="container asmr-detail-inner">
-          <Link className="asmr-back-link" href={catalogHref}>
-            {copy.backToCatalog}
-          </Link>
+          <div className="asmr-detail-nav">
+            <Link className="asmr-back-link" href={catalogHref}>
+              {copy.backToCatalog}
+            </Link>
+            <Suspense fallback={null}>
+              <AsmrLanguageSwitcher locale={locale} />
+            </Suspense>
+          </div>
 
           <article className="asmr-detail">
             <header className="asmr-detail-header">
               <div>
                 <p className="asmr-kicker">
                   {triggerPrimaryCategories[trigger.primaryCategory][locale]} ·{" "}
-                  {trigger.secondaryCategory}
+                  {secondaryCategory}
                 </p>
                 <div className="asmr-detail-title-row">
                   <h1>{trigger.title}</h1>

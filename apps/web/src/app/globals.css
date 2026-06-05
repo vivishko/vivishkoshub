@@ -1016,6 +1016,14 @@ p {
   gap: 18px;
 }
 
+.asmr-detail-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .asmr-back-link {
   width: fit-content;
   color: #7c5fa8;

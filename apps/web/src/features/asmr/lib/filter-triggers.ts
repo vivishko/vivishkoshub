@@ -1,3 +1,4 @@
+import { getLocalizedTriggerSecondaryCategory } from "@/features/asmr/data/trigger-localization";
 import type { Trigger, TriggerPrimaryCategory } from "@/features/asmr/types";
 
 export type TriggerFilterOptions = {
@@ -18,6 +19,8 @@ function getSearchableTriggerText(trigger: Trigger) {
     trigger.description.en,
     trigger.primaryCategory,
     trigger.secondaryCategory,
+    getLocalizedTriggerSecondaryCategory(trigger, "ru"),
+    getLocalizedTriggerSecondaryCategory(trigger, "en"),
     ...trigger.tags,
     ...trigger.aliases,
     ...trigger.asmrtists,
