@@ -11,6 +11,15 @@ export type FunItem = {
 
 export const funItems: FunItem[] = [
   {
+    title: "ASMR Trigger Catalog",
+    summary: "Explore ASMR triggers by category, save favorites, and follow related paths.",
+    type: "trigger-base",
+    status: "live",
+    tags: ["asmr", "triggers", "catalog"],
+    accent: "#c4a7e7",
+    href: "/asmr",
+  },
+  {
     title: "Artemis II Visualization",
     summary: "Interactive mission trajectory viewer with real JPL Horizons state vectors.",
     type: "mission-viz",
