@@ -29,11 +29,17 @@ mini games and visual sketches.
 ## Local Development
 
 1. Install dependencies:
-   - cd apps/web
-   - npm install
+   - make install
 2. Run the dev server:
-   - npm run dev
+   - make dev
 3. Open http://localhost:3000
+
+Useful root commands:
+
+- `make test`: run project checks.
+- `make build`: build the web app.
+- `make lint`: run ESLint.
+- `make format`: format files with Prettier.
 
 ## Notes
 
