@@ -1,12 +1,5 @@
 import Link from "next/link";
-
-const navigation = [
-  { href: "/projects", label: "Projects" },
-  { href: "/fun", label: "Notes" },
-  { href: "/#about", label: "About" },
-  { href: "/?lang=ru", label: "RU" },
-  { href: "/?lang=en", label: "EN" },
-];
+import { primaryNavigation } from "@/data/site-routes";
 
 export default function SiteHeader() {
   return (
@@ -16,7 +9,7 @@ export default function SiteHeader() {
           VIVISHKOSHUB
         </Link>
         <nav className="site-nav" aria-label="Primary navigation">
-          {navigation.map((item) => (
+          {primaryNavigation.map((item) => (
             <Link key={item.label} href={item.href}>
               {item.label}
             </Link>
@@ -25,7 +18,7 @@ export default function SiteHeader() {
         <details className="mobile-nav">
           <summary>МЕНЮ</summary>
           <nav className="mobile-nav-panel" aria-label="Mobile navigation">
-            {navigation.map((item) => (
+            {primaryNavigation.map((item) => (
               <Link key={item.label} href={item.href}>
                 {item.label}
               </Link>
