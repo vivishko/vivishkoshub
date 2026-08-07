@@ -83,7 +83,7 @@ Designed for rapid layout exploration and prototyping.
     tags: ["dashboard", "design", "motion"],
     cover: { src: "/covers/studio-drift.svg", alt: "Studio Drift cover" },
     gallery: [
-      { src: "/projects/studio.svg", alt: "Studio Drift detail 1" },
+      { src: "/covers/studio-drift.svg", alt: "Studio Drift detail 1" },
       { src: "/covers/studio-drift.svg", alt: "Studio Drift detail 2" },
     ],
     links: {
