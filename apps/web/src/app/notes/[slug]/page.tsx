@@ -1,0 +1,64 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import PageLayout from "@/components/PageLayout";
+import { getNoteBySlug, notes } from "@/data/notes";
+import { siteRoutes } from "@/data/site-routes";
+
+type Params = { slug: string };
+
+function getLead(description: string) {
+  return description === "Почему ограничение на количество приёмов обычно даёт более живой результат."
+    ? "Личный сайт становится убедительнее, когда у него есть простые правила и достаточно воздуха, чтобы их заметить."
+    : description;
+}
+
+export function generateStaticParams() {
+  return notes.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { slug } = await params;
+  const note = getNoteBySlug(slug);
+  return note
+    ? { title: `${note.title} — VivishkosHub`, description: note.description }
+    : { title: "Заметка не найдена — VivishkosHub" };
+}
+
+export default async function NoteDetailPage({ params }: { params: Promise<Params> }) {
+  const { slug } = await params;
+  const note = getNoteBySlug(slug);
+  if (!note) notFound();
+
+  const sections = note.body?.sections ?? [{ heading: "Заметка в развитии", text: note.description }];
+  const caption = note.body?.figure ?? "РИС. 01 — ЗАМЕТКА В РАЗВИТИИ";
+  const quote = note.body?.quote ?? "Эта заметка пока собирается из наблюдений, ссылок и рабочих вопросов.";
+
+  return (
+    <PageLayout>
+      <main className="note-detail">
+        <article className="container note-detail-inner">
+          <p className="note-breadcrumbs">
+            <Link href={siteRoutes.notes}>Заметки</Link><span aria-hidden="true"> / </span>
+            <span>{note.tags[0] ?? "Заметки"}</span><span aria-hidden="true"> / </span><time dateTime={note.publishedAt}>{note.displayDate}</time>
+          </p>
+          <header className="note-detail-header">
+            <h1>{note.title}</h1>
+            <p>{getLead(note.description)}</p>
+          </header>
+          <figure className="note-figure">
+            <svg viewBox="0 0 820 210" role="img" aria-label="Абстрактная графика ритма и повторов" preserveAspectRatio="none">
+              <path d="M0 180 155 70l145 55 142-81 178 101 200-127" />
+            </svg>
+          </figure>
+          <p className="note-figure-caption">{caption}</p>
+          <div className="note-body">
+            {sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2><p>{section.text}</p></section>)}
+            <blockquote>{quote}</blockquote>
+          </div>
+          <p className="note-tags" aria-label="Теги">{note.tags.join(" · ")}</p>
+        </article>
+      </main>
+    </PageLayout>
+  );
+}
