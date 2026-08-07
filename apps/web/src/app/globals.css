@@ -3370,3 +3370,257 @@ p {
     padding-left: 0;
   }
 }
+
+/* About */
+.about-page > .site-footer {
+  display: none;
+}
+
+.about-main {
+  padding: 57px 0 0;
+}
+
+.about-intro h1 {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.about-subtitle {
+  margin-top: 2px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.about-intro-box {
+  display: grid;
+  gap: 26px;
+  min-height: 190px;
+  margin-top: 62px;
+  padding: 33px 24px;
+  border: 1px solid var(--line);
+}
+
+.about-intro-box p {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.about-experience {
+  margin: 72px 24px 0;
+}
+
+.about-experience > h2,
+.about-period,
+.about-entry-link,
+.about-profile-footer-nav,
+.about-profile-copyright {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.about-experience > h2 {
+  color: var(--muted);
+}
+
+.about-experience-list {
+  margin-top: 35px;
+}
+
+.about-experience-entry {
+  min-height: 265px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line);
+}
+
+.about-experience-entry h3 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.about-organization {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.about-period {
+  margin-top: 10px;
+  color: var(--ink);
+}
+
+.about-description {
+  margin-top: 20px;
+  max-width: 925px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.about-entry-link {
+  display: inline-block;
+  margin-top: 34px;
+  color: var(--muted);
+}
+
+.about-profile-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 88px;
+  margin: 40px 24px 0;
+  padding: 20px 30px;
+  color: var(--paper);
+  background: var(--ink);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.about-profile-cta > span:last-child {
+  font-size: 21px;
+}
+
+.about-profile-footer {
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  min-height: 922px;
+  padding: 519px 20px 60px;
+  text-align: center;
+}
+
+.about-profile-footer-nav,
+.about-profile-copyright {
+  color: var(--muted);
+}
+
+.about-profile-socials {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 60px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.about-profile-copyright {
+  margin-top: 84px;
+}
+
+@media (max-width: 1060px) {
+  .about-main {
+    padding-inline: 20px;
+  }
+
+  .about-main .container {
+    padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-main {
+    padding: 37px 20px 0;
+  }
+
+  .about-intro h1 {
+    font-size: 31px;
+  }
+
+  .about-subtitle {
+    max-width: 330px;
+    margin-top: 2px;
+    font-size: 13px;
+  }
+
+  .about-intro-box {
+    min-height: 180px;
+    margin-top: 57px;
+    padding: 20px 19px;
+    gap: 20px;
+  }
+
+  .about-intro-box p {
+    font-size: 12px;
+  }
+
+  .about-experience {
+    margin: 51px 0 0;
+  }
+
+  .about-experience > h2,
+  .about-period,
+  .about-entry-link,
+  .about-profile-footer-nav,
+  .about-profile-copyright {
+    font-size: 9px;
+  }
+
+  .about-experience-list {
+    margin-top: 32px;
+  }
+
+  .about-experience-entry {
+    min-height: 200px;
+    padding-top: 18px;
+  }
+
+  .about-experience-entry h3 {
+    font-size: 15px;
+  }
+
+  .about-organization {
+    font-size: 12px;
+  }
+
+  .about-period {
+    margin-top: 9px;
+  }
+
+  .about-description {
+    margin-top: 17px;
+    font-size: 11px;
+  }
+
+  .about-entry-link {
+    margin-top: 24px;
+  }
+
+  .about-profile-cta {
+    min-height: 66px;
+    margin: 25px 0 0;
+    padding: 15px 19px;
+    font-size: 13px;
+  }
+
+  .about-profile-cta > span:last-child {
+    font-size: 17px;
+  }
+
+  .about-profile-footer {
+    min-height: 875px;
+    padding: 544px 20px 40px;
+  }
+
+  .about-profile-footer-nav {
+    max-width: 330px;
+    line-height: 1.8;
+  }
+
+  .about-profile-socials {
+    gap: 15px;
+    margin-top: 52px;
+    font-size: 12px;
+  }
+
+  .about-profile-copyright {
+    margin-top: 68px;
+  }
+}
