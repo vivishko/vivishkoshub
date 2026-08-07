@@ -117,6 +117,14 @@ p {
   gap: 22px;
 }
 
+.site-language {
+  white-space: nowrap;
+}
+
+.footer-links {
+  list-style: none;
+}
+
 .site-nav a,
 .footer-links a,
 .site-wordmark,

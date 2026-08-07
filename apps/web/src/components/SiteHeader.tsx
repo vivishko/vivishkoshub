@@ -14,6 +14,7 @@ export default function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <span className="site-language">RU / EN</span>
         </nav>
         <details className="mobile-nav">
           <summary>МЕНЮ</summary>

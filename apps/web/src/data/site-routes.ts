@@ -10,20 +10,12 @@ export const siteRoutes = {
 export type SiteRoute = (typeof siteRoutes)[keyof typeof siteRoutes];
 
 type NavigationItem = {
-  href: SiteRoute | "/?lang=ru" | "/?lang=en";
+  href: SiteRoute;
   label: string;
 };
 
 export const primaryNavigation = [
-  { href: siteRoutes.projects, label: "Projects" },
-  { href: siteRoutes.notes, label: "Notes" },
-  { href: siteRoutes.about, label: "About" },
-  { href: "/?lang=ru", label: "RU" },
-  { href: "/?lang=en", label: "EN" },
-] as const satisfies readonly NavigationItem[];
-
-export const footerNavigation = [
-  { href: siteRoutes.projects, label: "Projects" },
-  { href: siteRoutes.notes, label: "Notes" },
-  { href: siteRoutes.about, label: "About" },
+  { href: siteRoutes.projects, label: "ПРОЕКТЫ" },
+  { href: siteRoutes.notes, label: "ЗАМЕТКИ" },
+  { href: siteRoutes.about, label: "ОБО МНЕ" },
 ] as const satisfies readonly NavigationItem[];

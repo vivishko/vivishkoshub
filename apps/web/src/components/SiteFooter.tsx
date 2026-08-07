@@ -1,20 +1,14 @@
-import Link from "next/link";
-import { footerNavigation } from "@/data/site-routes";
-
 export default function SiteFooter() {
-  const year = new Date().getFullYear();
-
   return (
     <footer className="site-footer">
       <div className="container site-footer-inner">
-        <span className="footer-title">© {year} VIVISHKOSHUB</span>
-        <nav className="footer-links" aria-label="Footer navigation">
-          {footerNavigation.map((item) => (
-            <Link href={item.href} key={item.label}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <span className="footer-title">© 2026 VIVISHKOSHUB</span>
+        <ul className="footer-links" aria-label="Social media">
+          <li>TG</li>
+          <li>IG</li>
+          <li>X</li>
+          <li>GITHUB</li>
+        </ul>
       </div>
     </footer>
   );
