@@ -184,82 +184,538 @@ p {
 }
 
 /* Notes */
-.notes-page { padding: 68px 0 150px; }
-.notes-inner { display: grid; gap: 0; }
-.notes-intro h1, .note-detail-header h1 { font-size: clamp(31px, 3vw, 42px); line-height: 1.12; }
-.notes-intro > p { max-width: 750px; margin-top: 40px; font-size: 15px; line-height: 1.6; }
-.notes-intro .notes-filters, .note-row time, .note-read-link, .note-breadcrumbs, .note-figure-caption, .note-tags { font-family: var(--font-mono); font-size: 10px; line-height: 1.4; letter-spacing: .045em; text-transform: uppercase; }
-.notes-intro .notes-filters { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 72px; color: var(--muted); }
-.notes-list { margin-top: 90px; border-bottom: 1px solid var(--line); }
-.note-row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 0; min-height: 180px; padding: 27px 0 28px; border-top: 1px solid var(--line); }
-.note-row time { color: var(--muted); padding-top: 4px; }
-.note-row-content { display: grid; justify-items: start; }
-.note-row h2 { font-size: 20px; line-height: 1.3; }
-.note-row h2 a:hover { color: var(--blue); }
-.note-row p { margin-top: 11px; max-width: 720px; font-size: 13px; line-height: 1.6; }
-.note-read-link { margin-top: 25px; color: var(--muted); transition: color 160ms ease; }
-.note-read-link:hover { color: var(--blue); }
-.notes-map { min-height: 490px; margin-top: 159px; padding: 48px 39px; border: 1px solid var(--line); background: var(--soft); display: grid; grid-template-columns: 1fr 430px; align-items: start; }
-.notes-map h2, .notes-closing h2 { font-size: 27px; line-height: 1.2; }
-.notes-map p { max-width: 480px; margin-top: 23px; font-size: 14px; line-height: 1.6; }
-.notes-map-graphic { width: 360px; height: 235px; justify-self: end; margin-top: 11px; overflow: visible; }
-.notes-map-graphic path, .note-figure path { fill: none; stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
-.notes-map-graphic circle { fill: var(--ink); }
-.notes-closing { margin-top: 172px; }
-.notes-closing p { max-width: 720px; margin-top: 20px; font-size: 14px; line-height: 1.6; }
+.notes-page {
+  padding: 68px 0 150px;
+}
+.notes-inner {
+  display: grid;
+  gap: 0;
+}
+.notes-intro h1,
+.note-detail-header h1 {
+  font-size: clamp(31px, 3vw, 42px);
+  line-height: 1.12;
+}
+.notes-intro > p {
+  max-width: 750px;
+  margin-top: 40px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.notes-intro .notes-filters,
+.note-row time,
+.note-read-link,
+.note-breadcrumbs,
+.note-figure-caption,
+.note-tags {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+.notes-intro .notes-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 72px;
+  color: var(--muted);
+}
+.notes-list {
+  margin-top: 90px;
+  border-bottom: 1px solid var(--line);
+}
+.note-row {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 0;
+  min-height: 180px;
+  padding: 27px 0 28px;
+  border-top: 1px solid var(--line);
+}
+.note-row time {
+  color: var(--muted);
+  padding-top: 4px;
+}
+.note-row-content {
+  display: grid;
+  justify-items: start;
+}
+.note-row h2 {
+  font-size: 20px;
+  line-height: 1.3;
+}
+.note-row h2 a:hover {
+  color: var(--blue);
+}
+.note-row p {
+  margin-top: 11px;
+  max-width: 720px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.note-read-link {
+  margin-top: 25px;
+  color: var(--muted);
+  transition: color 160ms ease;
+}
+.note-read-link:hover {
+  color: var(--blue);
+}
+.notes-map {
+  min-height: 490px;
+  margin-top: 159px;
+  padding: 48px 39px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  align-items: start;
+}
+.notes-map h2,
+.notes-closing h2 {
+  font-size: 27px;
+  line-height: 1.2;
+}
+.notes-map p {
+  max-width: 480px;
+  margin-top: 23px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.notes-map-graphic {
+  width: 360px;
+  height: 235px;
+  justify-self: end;
+  margin-top: 11px;
+  overflow: visible;
+}
+.notes-map-graphic path,
+.note-figure path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.notes-map-graphic circle {
+  fill: var(--ink);
+}
+.notes-closing {
+  margin-top: 172px;
+}
+.notes-closing p {
+  max-width: 720px;
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
-.note-detail { padding: 68px 0 150px; }
-.note-detail-inner { max-width: var(--container); }
-.note-breadcrumbs { color: var(--muted); }
-.note-breadcrumbs a:hover { color: var(--blue); }
-.note-detail-header { margin-top: 33px; }
-.note-detail-header h1 { max-width: 830px; font-size: clamp(29px, 2.8vw, 39px); }
-.note-detail-header p { max-width: 740px; margin-top: 27px; font-size: 16px; line-height: 1.6; }
-.note-figure { height: 455px; margin-top: 100px; border: 1px solid var(--ink); background: var(--soft); display: grid; place-items: center; overflow: hidden; }
-.note-figure svg { width: calc(100% - 200px); height: 210px; }
-.note-figure path { stroke-width: 3; }
-.note-figure-caption { margin: 20px 20px 0; color: var(--muted); }
-.note-body { max-width: 760px; margin-top: 88px; }
-.note-body section + section { margin-top: 73px; }
-.note-body h2 { font-size: 24px; line-height: 1.25; }
-.note-body p { margin-top: 17px; font-size: 14px; line-height: 1.7; }
-.note-body blockquote { margin-top: 95px; padding: 0 0 0 31px; border-left: 4px solid var(--blue); max-width: 765px; color: var(--ink); font-size: 21px; font-weight: 500; line-height: 1.5; }
-.note-tags { margin-top: 137px; color: var(--muted); }
+.note-detail {
+  padding: 68px 0 150px;
+}
+.note-detail-inner {
+  max-width: var(--container);
+}
+.note-breadcrumbs {
+  color: var(--muted);
+}
+.note-breadcrumbs a:hover {
+  color: var(--blue);
+}
+.note-detail-header {
+  margin-top: 33px;
+}
+.note-detail-header h1 {
+  max-width: 830px;
+  font-size: clamp(29px, 2.8vw, 39px);
+}
+.note-detail-header p {
+  max-width: 740px;
+  margin-top: 27px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.note-figure {
+  height: 455px;
+  margin-top: 100px;
+  border: 1px solid var(--ink);
+  background: var(--soft);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.note-figure svg {
+  width: calc(100% - 200px);
+  height: 210px;
+}
+.note-figure path {
+  stroke-width: 3;
+}
+.note-figure-caption {
+  margin: 20px 20px 0;
+  color: var(--muted);
+}
+.note-body {
+  max-width: 760px;
+  margin-top: 88px;
+}
+.note-body section + section {
+  margin-top: 73px;
+}
+.note-body h2 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+.note-body p {
+  margin-top: 17px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.note-body blockquote {
+  margin-top: 95px;
+  padding: 0 0 0 31px;
+  border-left: 4px solid var(--blue);
+  max-width: 765px;
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.note-tags {
+  margin-top: 137px;
+  color: var(--muted);
+}
 
 @media (max-width: 760px) {
-  .notes-page, .note-detail { padding: 48px 20px 100px; }
-  .notes-page .container, .note-detail .container { padding: 0; }
-  .notes-intro > p { margin-top: 18px; font-size: 14px; }
-  .notes-intro .notes-filters { margin-top: 58px; gap: 9px; font-size: 9px; letter-spacing: .035em; }
-  .notes-list { margin-top: 62px; }
-  .note-row { display: block; min-height: 0; padding: 18px 0 26px; }
-  .note-row time { display: block; padding: 0; font-size: 9px; letter-spacing: .035em; }
-  .note-row h2 { margin-top: 10px; font-size: 16px; }
-  .note-row p { margin-top: 11px; font-size: 12px; }
-  .note-read-link { margin-top: 21px; font-size: 9px; letter-spacing: .035em; }
-  .notes-map { min-height: 300px; margin-top: 124px; padding: 35px 19px; display: block; }
-  .notes-map h2, .notes-closing h2 { font-size: 19px; }
-  .notes-map p { display: none; }
-  .notes-map-graphic { display: block; width: 175px; height: 105px; margin: 47px 20px 0 auto; }
-  .notes-closing { margin-top: 108px; }
-  .notes-closing p { margin-top: 17px; font-size: 13px; }
-  .note-breadcrumbs, .note-figure-caption, .note-tags { font-size: 9px; letter-spacing: .035em; }
-  .note-detail-header { margin-top: 25px; }
-  .note-detail-header p { margin-top: 20px; font-size: 14px; }
-  .note-figure { height: 260px; margin-top: 73px; }
-  .note-figure svg { width: calc(100% - 68px); height: 125px; }
-  .note-figure path { stroke-width: 2; }
-  .note-figure-caption { margin: 20px 0 0; }
-  .note-body { margin-top: 57px; }
-  .note-body section + section { margin-top: 62px; }
-  .note-body h2 { font-size: 19px; }
-  .note-body p { margin-top: 12px; font-size: 13px; line-height: 1.7; }
-  .note-body blockquote { margin-top: 76px; padding-left: 15px; border-left-width: 3px; font-size: 17px; }
-  .note-tags { margin-top: 104px; }
+  .notes-page,
+  .note-detail {
+    padding: 48px 20px 100px;
+  }
+  .notes-page .container,
+  .note-detail .container {
+    padding: 0;
+  }
+  .notes-intro > p {
+    margin-top: 18px;
+    font-size: 14px;
+  }
+  .notes-intro .notes-filters {
+    margin-top: 58px;
+    gap: 9px;
+    font-size: 9px;
+    letter-spacing: 0.035em;
+  }
+  .notes-list {
+    margin-top: 62px;
+  }
+  .note-row {
+    display: block;
+    min-height: 0;
+    padding: 18px 0 26px;
+  }
+  .note-row time {
+    display: block;
+    padding: 0;
+    font-size: 9px;
+    letter-spacing: 0.035em;
+  }
+  .note-row h2 {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  .note-row p {
+    margin-top: 11px;
+    font-size: 12px;
+  }
+  .note-read-link {
+    margin-top: 21px;
+    font-size: 9px;
+    letter-spacing: 0.035em;
+  }
+  .notes-map {
+    min-height: 300px;
+    margin-top: 124px;
+    padding: 35px 19px;
+    display: block;
+  }
+  .notes-map h2,
+  .notes-closing h2 {
+    font-size: 19px;
+  }
+  .notes-map p {
+    display: none;
+  }
+  .notes-map-graphic {
+    display: block;
+    width: 175px;
+    height: 105px;
+    margin: 47px 20px 0 auto;
+  }
+  .notes-closing {
+    margin-top: 108px;
+  }
+  .notes-closing p {
+    margin-top: 17px;
+    font-size: 13px;
+  }
+  .note-breadcrumbs,
+  .note-figure-caption,
+  .note-tags {
+    font-size: 9px;
+    letter-spacing: 0.035em;
+  }
+  .note-detail-header {
+    margin-top: 25px;
+  }
+  .note-detail-header p {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .note-figure {
+    height: 260px;
+    margin-top: 73px;
+  }
+  .note-figure svg {
+    width: calc(100% - 68px);
+    height: 125px;
+  }
+  .note-figure path {
+    stroke-width: 2;
+  }
+  .note-figure-caption {
+    margin: 20px 0 0;
+  }
+  .note-body {
+    margin-top: 57px;
+  }
+  .note-body section + section {
+    margin-top: 62px;
+  }
+  .note-body h2 {
+    font-size: 19px;
+  }
+  .note-body p {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .note-body blockquote {
+    margin-top: 76px;
+    padding-left: 15px;
+    border-left-width: 3px;
+    font-size: 17px;
+  }
+  .note-tags {
+    margin-top: 104px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .note-read-link, .note-row h2 a { transition: none; }
+  .note-read-link,
+  .note-row h2 a {
+    transition: none;
+  }
+}
+
+/* Experiments */
+.experiments-page {
+  padding: 68px 0 190px;
+}
+.experiments-intro h1 {
+  font-size: 42px;
+  line-height: 1.12;
+}
+.experiments-intro > p:not(.experiments-index) {
+  max-width: 730px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.experiments-index,
+.experiment-row time,
+.experiments-figure figcaption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.045em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.experiments-index {
+  margin-top: 76px;
+  color: var(--muted);
+}
+.experiments-list {
+  margin-top: 100px;
+  border-bottom: 1px solid var(--line);
+}
+.experiment-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 65px;
+  min-height: 205px;
+  padding: 20px 55px 28px 0;
+  border-top: 1px solid var(--line);
+}
+.experiment-row time {
+  padding-top: 6px;
+  color: var(--muted);
+}
+.experiment-content h2 {
+  font-size: 21px;
+  line-height: 1.3;
+}
+.experiment-content p {
+  max-width: 690px;
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.experiment-status {
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  justify-self: end;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.experiments-archive {
+  margin-top: 207px;
+}
+.experiments-rationale h2 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+.experiments-rationale p {
+  max-width: 730px;
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.experiments-figure {
+  position: relative;
+  height: 520px;
+  margin-top: 220px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  overflow: hidden;
+}
+.experiments-figure figcaption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.experiments-figure svg {
+  position: absolute;
+  width: 780px;
+  height: 280px;
+  left: 120px;
+  top: 100px;
+  overflow: visible;
+}
+.experiments-figure path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.experiments-figure circle {
+  fill: var(--ink);
+}
+
+@media (max-width: 1080px) {
+  .experiments-page {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .experiments-page {
+    padding: 48px 20px 100px;
+  }
+  .experiments-page .container {
+    padding: 0;
+  }
+  .experiments-intro h1 {
+    font-size: 31px;
+  }
+  .experiments-intro > p:not(.experiments-index) {
+    max-width: 330px;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  .experiments-index,
+  .experiment-row time,
+  .experiments-figure figcaption {
+    font-size: 9px;
+    letter-spacing: 0.035em;
+  }
+  .experiments-index {
+    margin-top: 61px;
+  }
+  .experiments-list {
+    margin-top: 62px;
+  }
+  .experiment-row {
+    grid-template-columns: 75px minmax(0, 1fr);
+    min-height: 170px;
+    padding: 16px 18px 20px 0;
+  }
+  .experiment-row time {
+    padding-top: 1px;
+  }
+  .experiment-content h2 {
+    font-size: 16px;
+    line-height: 1.35;
+  }
+  .experiment-content p {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .experiment-status {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+    width: 8px;
+    height: 8px;
+    margin: 0;
+  }
+  .experiments-archive {
+    margin-top: 110px;
+  }
+  .experiments-rationale {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .experiments-figure {
+    height: 300px;
+    margin-top: 0;
+  }
+  .experiments-figure figcaption {
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 31px 19px 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    color: var(--ink);
+  }
+  .experiments-figure svg {
+    width: 270px;
+    height: 100px;
+    left: 39px;
+    top: 109px;
+  }
 }
 
 .home {
