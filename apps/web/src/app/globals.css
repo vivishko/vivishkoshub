@@ -101,6 +101,14 @@ p {
   letter-spacing: 0.02em;
 }
 
+.artemis-page .site-wordmark {
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.artemis-page .site-wordmark:hover {
+  color: var(--accent);
+}
+
 .site-nav,
 .footer-links {
   display: flex;
@@ -698,7 +706,7 @@ p {
   background: rgba(250, 247, 242, 0.86);
 }
 
-.asmr-page .logo,
+.asmr-page .site-wordmark,
 .asmr-page h1,
 .asmr-page h2,
 .asmr-page h3 {
@@ -709,9 +717,9 @@ p {
   color: var(--asmr-muted);
 }
 
-.asmr-page .nav a:hover {
+.asmr-page .site-nav a:hover {
   color: #7c5fa8;
-  border-color: var(--asmr-accent);
+  text-decoration-color: var(--asmr-accent);
 }
 
 .asmr-main {
