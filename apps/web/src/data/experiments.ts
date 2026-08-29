@@ -3,7 +3,7 @@ export type Experiment = {
   date: string;
   title: string;
   description: string;
-  status: "В работе";
+  status: string;
 };
 
 export const experiments = [
@@ -45,4 +45,15 @@ export function isExperimentSlug(slug: string): slug is ExperimentSlug {
 
 export function getExperimentBySlug(slug: string): Experiment | undefined {
   return experiments.find((experiment) => experiment.slug === slug);
+}
+
+const englishExperiments: Record<string, Pick<Experiment, "title" | "description" | "status">> = {
+  "portable-archive": { title: "Portable archive", description: "Exploring how a personal library can be both a journal and a navigation system.", status: "In progress" },
+  "unobtrusive-prompts": { title: "Unobtrusive prompts", description: "A test of interface language that does not compete with content.", status: "In progress" },
+  "heading-system": { title: "Heading system", description: "A series of typographic studies for long-form reading.", status: "In progress" },
+  "work-connections-map": { title: "Map of working connections", description: "A draft map that turns notes into connected routes.", status: "In progress" },
+};
+
+export function getLocalizedExperiment(experiment: Experiment, locale: "ru" | "en"): Experiment {
+  return locale === "en" ? { ...experiment, ...englishExperiments[experiment.slug] } : experiment;
 }

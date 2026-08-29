@@ -1,29 +1,32 @@
-import Link from "next/link";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import LocalizedLink from "@/components/LocalizedLink";
 import { primaryNavigation } from "@/data/site-routes";
+import type { Locale } from "@/lib/locales";
 
-export default function SiteHeader() {
+export default function SiteHeader({ locale = "ru" }: { locale?: Locale }) {
   return (
     <header className="site-header">
       <div className="container site-header-inner">
-        <Link className="site-wordmark" href="/">
+        <LocalizedLink className="site-wordmark" href="/" locale={locale}>
           VIVISHKOSHUB
-        </Link>
+        </LocalizedLink>
         <nav className="site-nav" aria-label="Primary navigation">
           {primaryNavigation.map((item) => (
-            <Link key={item.label} href={item.href}>
+            <LocalizedLink key={item.label} href={item.href} locale={locale}>
               {item.label}
-            </Link>
+            </LocalizedLink>
           ))}
-          <span className="site-language">RU / EN</span>
+          <LanguageSwitcher locale={locale} />
         </nav>
         <details className="mobile-nav">
           <summary>МЕНЮ</summary>
           <nav className="mobile-nav-panel" aria-label="Mobile navigation">
             {primaryNavigation.map((item) => (
-              <Link key={item.label} href={item.href}>
+              <LocalizedLink key={item.label} href={item.href} locale={locale}>
                 {item.label}
-              </Link>
+              </LocalizedLink>
             ))}
+            <LanguageSwitcher locale={locale} />
           </nav>
         </details>
       </div>

@@ -93,3 +93,22 @@ export const profile: Profile = {
     { platform: "LinkedIn", label: "in" },
   ],
 };
+
+const englishProfile: Profile = {
+  ...profile,
+  title: "Design, research, independent projects.",
+  introduction: ["Designer and researcher. Previously: product teams, editorial formats, and independent launches.", "I write about visual systems, working with context, and ways of turning complexity into clear interfaces."],
+  experience: [
+    { role: "Design Lead", organization: "Independent practice", period: "2024 — present", location: "Moscow, remote", description: "Leading visual systems and interface work for independent products, from research to launch.", linkLabel: "Portfolio" },
+    { role: "Product Designer", organization: "Digital product team", period: "2022 — 2024", location: "Moscow", description: "Built user journeys, a design system, and editorial language for a service with a large knowledge base.", linkLabel: "Case study" },
+    { role: "Researcher", organization: "Studio practice", period: "2021 — 2022", location: "Saint Petersburg", description: "Researched habits, usage context, and interface language; translated observations into product decisions.", linkLabel: "Research" },
+    { role: "Founder, editor", organization: "Personal publishing project", period: "2020 — 2021", location: "Remote", description: "Launched an independent publishing format: site, material structure, and a regular publication cycle.", linkLabel: "Archive" },
+    { role: "Visual designer", organization: "Communication projects", period: "2019 — 2020", location: "Moscow", description: "Worked on identity, digital media, and communication systems for cultural and educational projects.", linkLabel: "Selected work" },
+    { role: "Designer", organization: "Freelance", period: "2017 — 2019", description: "First interfaces, web projects, and visual studies — the foundation of the current practice.", linkLabel: "All projects" },
+  ],
+  profileLink: { platform: "LinkedIn", label: "Full LinkedIn profile" },
+};
+
+export function getLocalizedProfile(locale: "ru" | "en"): Profile {
+  return locale === "en" ? englishProfile : profile;
+}

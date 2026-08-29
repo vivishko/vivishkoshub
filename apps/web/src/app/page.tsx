@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageLayout from "@/components/PageLayout";
+import LocalizedLink from "@/components/LocalizedLink";
 import { notes } from "@/data/notes";
+import { getLocalizedNote } from "@/data/notes";
 import { siteRoutes } from "@/data/site-routes";
+import { getLocale, type LocaleSearchParams } from "@/lib/locale";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Вивишко Шуб — работы и заметки",
+  title: "VIVISHKOSHUB — работы и заметки",
   description: "Личный архив работ, наблюдений и инструментов о дизайне и цифровых продуктах.",
 };
 
@@ -27,45 +30,51 @@ function RouteDrawing({ kind }: { kind: "projects" | "notes" }) {
   );
 }
 
-export default function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<LocaleSearchParams> }) {
+  const locale = getLocale(await searchParams);
+  const copy = locale === "en" ? {
+    intro: "A personal archive of work, observations, and tools — about design, digital products, and making complexity clear.",
+    topics: "DESIGN · RESEARCH · PRODUCTS", fresh: "Recent materials", projects: "MY PROJECTS", map: "NOTES MAP", read: "What to read here",
+    about: "Not a showcase of perfect cases, but a working collection: projects, drafts, visual techniques, and the context behind decisions.",
+    themes: "Core themes", themesCopy: "Visual systems · research · digital products · writing · independent projects.",
+  } : { intro: "Личный архив работ, наблюдений и инструментов. Про дизайн, цифровые продукты и способы делать сложное ясным.", topics: "ДИЗАЙН · ИССЛЕДОВАНИЯ · ПРОДУКТЫ", fresh: "Свежие материалы", projects: "МОИ ПРОЕКТЫ", map: "КАРТА ЗАМЕТОК", read: "Что здесь читать", about: "Это не витрина с идеальными кейсами, а рабочая коллекция: проекты, черновики, визуальные приёмы и контекст решений.", themes: "Основные темы", themesCopy: "Визуальные системы · исследования · цифровые продукты · тексты · независимые проекты." };
   return (
-    <PageLayout className={styles.home}>
+    <PageLayout className={styles.home} locale={locale}>
       <main>
         <section className={styles.hero} aria-labelledby="home-title">
           <div className="container">
-            <h1 id="home-title">Вивишко Шуб</h1>
-            <p>
-              Личный архив работ, наблюдений и инструментов. Про дизайн, цифровые продукты и способы
-              делать сложное ясным.
-            </p>
-            <span>ДИЗАЙН · ИССЛЕДОВАНИЯ · ПРОДУКТЫ</span>
+            <h1 id="home-title">VIVISHKOSHUB</h1>
+            <p>{copy.intro}</p>
+            <span>{copy.topics}</span>
           </div>
         </section>
 
         <section className={styles.materials} aria-labelledby="materials-title">
           <div className="container">
             <div className={styles.sectionHeading}>
-              <h2 id="materials-title">Свежие материалы</h2>
+              <h2 id="materials-title">{copy.fresh}</h2>
               <span>ВСЕ&nbsp;&nbsp; / &nbsp;&nbsp;СТАТЬИ</span>
             </div>
 
             <div className={styles.routeLinks}>
-              <Link className={styles.routeCard} href={siteRoutes.projects}>
+              <LocalizedLink className={styles.routeCard} href={siteRoutes.projects} locale={locale}>
                 <RouteDrawing kind="projects" />
-                <span>МОИ ПРОЕКТЫ</span>
-              </Link>
-              <Link className={`${styles.routeCard} ${styles.notesRoute}`} href={siteRoutes.notes}>
+                <span>{copy.projects}</span>
+              </LocalizedLink>
+              <LocalizedLink className={`${styles.routeCard} ${styles.notesRoute}`} href={siteRoutes.notes} locale={locale}>
                 <RouteDrawing kind="notes" />
-                <span>КАРТА ЗАМЕТОК</span>
-              </Link>
+                <span>{copy.map}</span>
+              </LocalizedLink>
             </div>
 
             <div className={styles.noteList}>
-              {notes.map((note) => (
-                <Link
+              {notes.map((sourceNote) => {
+                const note = getLocalizedNote(sourceNote, locale);
+                return <LocalizedLink
                   className={styles.noteRow}
                   href={`${siteRoutes.notes}/${note.slug}`}
                   key={note.slug}
+                  locale={locale}
                 >
                   <time dateTime={note.publishedAt}>{note.displayDate}</time>
                   <div className={styles.noteContent}>
@@ -73,8 +82,8 @@ export default function Home() {
                     <p>{note.description}</p>
                   </div>
                   <span className={styles.noteTags}>{note.listingTags.join("  ·  ")}</span>
-                </Link>
-              ))}
+                </LocalizedLink>;
+              })}
             </div>
           </div>
         </section>
@@ -82,19 +91,10 @@ export default function Home() {
         <section className={styles.about} aria-labelledby="about-title">
           <div className="container">
             <div>
-              <h2 id="about-title">Что здесь читать</h2>
-              <p>
-                Это не витрина с идеальными кейсами, а рабочая коллекция: проекты, черновики,
-                визуальные приёмы и контекст решений. Я фиксирую ход мысли — от первого вопроса до
-                результата.
-              </p>
+              <h2 id="about-title">{copy.read}</h2><p>{copy.about}</p>
             </div>
             <div>
-              <h2>Основные темы</h2>
-              <p>
-                Визуальные системы · исследования · цифровые продукты · тексты · независимые
-                проекты.
-              </p>
+              <h2>{copy.themes}</h2><p>{copy.themesCopy}</p>
             </div>
           </div>
         </section>

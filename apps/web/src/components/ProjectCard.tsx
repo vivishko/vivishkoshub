@@ -1,17 +1,19 @@
-import Link from "next/link";
+import LocalizedLink from "@/components/LocalizedLink";
 import type { Project } from "@/types/project";
 import Tag from "@/components/Tag";
+import type { Locale } from "@/lib/locales";
 
 type ProjectCardProps = {
   project: Project;
   index: number;
+  locale?: Locale;
 };
 
-export default function ProjectCard({ project, index }: ProjectCardProps) {
+export default function ProjectCard({ project, index, locale }: ProjectCardProps) {
   const number = String(index + 1).padStart(2, "0");
 
   return (
-    <Link className="project-card" href={`/projects/${project.slug}`}>
+    <LocalizedLink className="project-card" href={`/projects/${project.slug}`} locale={locale}>
       <div className={`project-preview project-preview-${(index % 3) + 1}`} aria-hidden="true">
         <span className="project-preview-panel" />
         <span className="project-preview-bar" />
@@ -29,6 +31,6 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         )}
       </div>
       <span className="project-card-link">Project →</span>
-    </Link>
+    </LocalizedLink>
   );
 }

@@ -87,3 +87,28 @@ export function isNoteSlug(slug: string): slug is NoteSlug {
 export function getNoteBySlug(slug: string): Note | undefined {
   return notes.find((note) => note.slug === slug);
 }
+
+const englishNotes: Record<string, Partial<Note>> = {
+  "visual-discipline-in-a-personal-project": {
+    readingTime: "6 min",
+    title: "Visual discipline in a personal project",
+    description: "Why limiting the number of techniques usually makes for a livelier result.",
+    tags: ["Design", "Process", "Systems"],
+    listingTags: ["Design", "Notes"],
+    body: {
+      figure: "FIG. 01 — RHYTHM, REPETITION AND SPACE",
+      sections: [
+        { heading: "Rules speed up decisions", text: "Instead of reinventing an interface on every page, it helps to agree on a few constants: text width, heading scale, rules, and the space between blocks." },
+        { heading: "Fewer techniques, more voice", text: "When an expressive gesture repeats too often, it becomes noise. One contrast system, one way to emphasize, and consistent captions give a site character without styling for its own sake." },
+      ],
+      quote: "Good form does not explain itself — it helps the content be read.",
+    },
+  },
+  "a-short-list-of-good-interfaces": { readingTime: "6 min", title: "A short list of good interfaces", description: "Examples where editorial rhythm matters more than decorative gestures.", tags: ["Interfaces", "Text", "Product"], listingTags: ["Design", "Notes"] },
+  "leaving-room-for-unfinished-work": { readingTime: "9 min", title: "Leaving room for unfinished work", description: "On drafts, intermediate states, and the value of an open structure.", tags: ["Projects", "Research"], listingTags: ["Design", "Notes"] },
+  "six-useful-links": { readingTime: "5 min", title: "Six useful links", description: "Tools and materials I return to in my work.", tags: ["Resources", "Links", "Notes"], listingTags: ["Resources", "Links"] },
+};
+
+export function getLocalizedNote(note: Note, locale: "ru" | "en"): Note {
+  return locale === "en" ? { ...note, ...englishNotes[note.slug] } : note;
+}

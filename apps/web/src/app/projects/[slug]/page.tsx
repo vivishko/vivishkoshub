@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { marked } from "marked";
 import { getProjectBySlug } from "@/lib/get-projects";
 import PageLayout from "@/components/PageLayout";
+import LocalizedLink from "@/components/LocalizedLink";
 import ProjectGallery from "./ProjectGallery";
 import ProjectUsageLink from "./ProjectUsageLink";
 
@@ -36,8 +37,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   };
 }
 
-export default async function ProjectOverviewPage({ params }: { params: Promise<Params> }) {
+export default async function ProjectOverviewPage({ params, searchParams }: { params: Promise<Params>; searchParams: Promise<{ lang?: string }> }) {
   const { slug } = await params;
+  const { lang } = await searchParams;
   const project = getProjectBySlug(slug);
   const gallery = project?.gallery ?? (project?.cover ? [project.cover] : []);
 
@@ -49,9 +51,9 @@ export default async function ProjectOverviewPage({ params }: { params: Promise<
     <PageLayout>
       <main className="project-detail">
         <div className="container project-detail-inner">
-          <Link className="project-back-link" href="/projects">
+          <LocalizedLink className="project-back-link" href="/projects" locale={lang === "en" ? "en" : "ru"}>
             ← Projects
-          </Link>
+          </LocalizedLink>
           <div className="project-detail-header">
             <div>
               <p className="project-detail-number">Project</p>

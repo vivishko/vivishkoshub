@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
 import PageLayout from "@/components/PageLayout";
-import { profile } from "@/data/profile";
+import { getLocalizedProfile } from "@/data/profile";
+import { getLocale, type LocaleSearchParams } from "@/lib/locale";
 
 export const metadata: Metadata = {
   title: "Обо мне — VivishkosHub",
   description: "Дизайн, исследования и независимые проекты Вивишко Шуб.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage({ searchParams }: { searchParams: Promise<LocaleSearchParams> }) {
+  const locale = getLocale(await searchParams);
+  const profile = getLocalizedProfile(locale);
+  const copy = locale === "en" ? { title: "About", experience: "Experience", footer: "RU    EN    BLOG    ARTICLES    ABOUT    ARCHIVE    PRIVACY", social: "Social profiles" } : { title: "Обо мне", experience: "Опыт", footer: "RU    EN    БЛОГ    СТАТЬИ    ОБО МНЕ    АРХИВ    PRIVACY", social: "Социальные профили" };
   return (
-    <PageLayout className="about-page">
+    <PageLayout className="about-page" locale={locale}>
       <main className="about-main">
         <div className="container about-container">
           <header className="about-intro">
-            <h1>Обо мне</h1>
+            <h1>{copy.title}</h1>
             <p className="about-subtitle">{profile.title}</p>
             <div className="about-intro-box">
               {profile.introduction.map((paragraph) => (
@@ -23,7 +27,7 @@ export default function AboutPage() {
           </header>
 
           <section className="about-experience" aria-labelledby="experience-title">
-            <h2 id="experience-title">Опыт</h2>
+            <h2 id="experience-title">{copy.experience}</h2>
             <div className="about-experience-list">
               {profile.experience.map((item) => (
                 <article className="about-experience-entry" key={`${item.role}-${item.period}`}>
@@ -48,8 +52,8 @@ export default function AboutPage() {
       </main>
 
       <footer className="about-profile-footer">
-        <p className="about-profile-footer-nav">RU&nbsp;&nbsp;&nbsp; EN&nbsp;&nbsp;&nbsp; БЛОГ&nbsp;&nbsp;&nbsp; СТАТЬИ&nbsp;&nbsp;&nbsp; ОБО МНЕ&nbsp;&nbsp;&nbsp; АРХИВ&nbsp;&nbsp;&nbsp; PRIVACY</p>
-        <p className="about-profile-socials" aria-label="Социальные профили">
+        <p className="about-profile-footer-nav">{copy.footer}</p>
+        <p className="about-profile-socials" aria-label={copy.social}>
           {profile.socials.map((social) => (
             <span key={social.platform}>{social.label}</span>
           ))}
