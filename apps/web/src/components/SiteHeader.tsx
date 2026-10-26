@@ -1,34 +1,16 @@
-import LanguageSwitcher from "@/components/LanguageSwitcher";
-import LocalizedLink from "@/components/LocalizedLink";
-import { primaryNavigation } from "@/data/site-routes";
-import type { Locale } from "@/lib/locales";
+import Link from "next/link";
 
-export default function SiteHeader({ locale = "ru" }: { locale?: Locale }) {
+export default function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container site-header-inner">
-        <LocalizedLink className="site-wordmark" href="/" locale={locale}>
-          VIVISHKOSHUB
-        </LocalizedLink>
-        <nav className="site-nav" aria-label="Primary navigation">
-          {primaryNavigation.map((item) => (
-            <LocalizedLink key={item.label} href={item.href} locale={locale}>
-              {item.label}
-            </LocalizedLink>
-          ))}
-          <LanguageSwitcher locale={locale} />
+        <Link className="logo" href="/">
+          VivishkosHub
+        </Link>
+        <nav className="nav">
+          <Link href="/projects">Projects</Link>
+          <Link href="/fun">Fun</Link>
         </nav>
-        <details className="mobile-nav">
-          <summary>МЕНЮ</summary>
-          <nav className="mobile-nav-panel" aria-label="Mobile navigation">
-            {primaryNavigation.map((item) => (
-              <LocalizedLink key={item.label} href={item.href} locale={locale}>
-                {item.label}
-              </LocalizedLink>
-            ))}
-            <LanguageSwitcher locale={locale} />
-          </nav>
-        </details>
       </div>
     </header>
   );
