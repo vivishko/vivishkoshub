@@ -4,6 +4,35 @@ import type { Project } from "@/types/project";
 // make it possible to change descriptions without commiting
 export const projects: Project[] = [
   {
+    slug: "lock-in",
+    title: "Lock-In · My Season",
+    summary:
+      "A seasonal goal tracker for daily check-ins, progress reviews, and a personal resource library.",
+    tags: ["Productivity", "Goal Tracking", "Journaling"],
+    links: {
+      live: "https://apps.vivishkoshub.com/tracker",
+    },
+    bodyMd: `## What it is
+Turn your goals into a focused season with clear commitments, custom metrics, and regular reflection. Lock-In brings daily entries, progress tracking, reviews, and useful materials together in one place.
+
+Each season keeps its own dates, rules, metrics, and results. Settings changes are recorded over time, preserving the context behind earlier entries as your plans evolve.
+
+## Key features
+- Custom number and checkbox metrics, weekly minimums, targets, and progression plans.
+- Daily notes and weekly, monthly, financial, and end-of-season reviews.
+- A searchable resource library shared across seasons.
+- Calendar export for review sessions and reminders.
+- JSON export, restore, and backup snapshots.
+- Offline access after the app has been cached, plus ten visual themes.
+
+## Storage and backups
+The browser version requires no account and stores your history in your browser. A local edition runs on Node.js and SQLite. JSON backups let you move your history between them; there is no automatic sync.
+
+## Try it
+[Open Lock-In](https://apps.vivishkoshub.com/tracker)
+`,
+  },
+  {
     slug: "custom-proxy-ext",
     title: "Custom Proxy extention",
     summary: "A lightweight browser extension for flexible proxy control.",
