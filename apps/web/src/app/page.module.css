@@ -1,310 +1,141 @@
-.home {
-  --home-ink: #111111;
-  --home-muted: #696969;
-  --home-line: #d9d9d9;
-  background: var(--paper);
-}
+.page {
+  --background: #fafafa;
+  --foreground: #fff;
 
-.hero {
-  padding: 0;
-}
+  --text-primary: #000;
+  --text-secondary: #666;
 
-.about :global(.container) {
-  border-top: 1px solid var(--home-line);
-}
+  --button-primary-hover: #383838;
+  --button-secondary-hover: #f2f2f2;
+  --button-secondary-border: #ebebeb;
 
-.hero :global(.container) {
-  padding-top: 69px;
-  padding-bottom: 35px;
-  border-bottom: 1px solid var(--home-line);
-}
-
-.hero h1 {
-  margin-top: 0;
-  color: var(--home-ink);
-  font-size: 42px;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-}
-
-.hero p {
-  max-width: 710px;
-  margin-top: 15px;
-  color: var(--home-muted);
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.hero span,
-.sectionHeading span,
-.noteRow time,
-.noteTags {
-  color: var(--home-muted);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  line-height: 1.4;
-}
-
-.hero span {
-  display: block;
-  margin-top: 60px;
-  font-size: 11px;
-}
-
-.materials {
-  padding: 0 0 95px;
-}
-
-.materials :global(.container) {
-  padding-top: 67px;
-}
-
-.sectionHeading {
   display: flex;
-  align-items: baseline;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-sans);
+  background-color: var(--background);
+}
+
+.main {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 800px;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
+  background-color: var(--foreground);
+  padding: 120px 60px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
   gap: 24px;
 }
 
-.sectionHeading h2,
-.about h2 {
-  color: var(--home-ink);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+.intro h1 {
+  max-width: 320px;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: -2.4px;
+  text-wrap: balance;
+  color: var(--text-primary);
 }
 
-.routeLinks {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 30px;
-  margin-top: 42px;
+.intro p {
+  max-width: 440px;
+  font-size: 18px;
+  line-height: 32px;
+  text-wrap: balance;
+  color: var(--text-secondary);
 }
 
-.routeCard {
-  display: grid;
-  height: 330px;
-  padding: 44px 55px 50px;
-  border: 1px solid var(--home-line);
-  color: var(--home-ink);
-  grid-template-rows: 190px auto;
-  transition:
-    background-color 160ms ease,
-    border-color 160ms ease;
-}
-
-.routeCard span {
-  align-self: end;
-  font-size: 22px;
+.intro a {
   font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
+  color: var(--text-primary);
 }
 
-.routeDrawing {
+.ctas {
+  display: flex;
+  flex-direction: row;
   width: 100%;
-  height: 190px;
-  border: 1px solid var(--home-ink);
-}
-
-.routeDrawing path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-.routeDrawing circle {
-  fill: currentColor;
-}
-
-.noteList {
-  margin-top: 40px;
-}
-
-.noteRow {
-  display: grid;
-  min-height: 148px;
-  padding: 24px 0;
-  border-top: 1px solid var(--home-line);
-  color: var(--home-ink);
-  grid-template-columns: 135px minmax(0, 1fr) 200px;
-  gap: 20px;
-  transition:
-    background-color 160ms ease,
-    color 160ms ease;
-}
-
-.noteRow:last-child {
-  border-bottom: 1px solid var(--home-line);
-}
-
-.noteContent h3 {
-  color: inherit;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.3;
-}
-
-.noteContent p {
-  max-width: 620px;
-  margin-top: 9px;
-  color: var(--home-muted);
-  font-size: 12px;
-  line-height: 1.55;
-}
-
-.noteTags {
-  align-self: end;
-  text-align: right;
-}
-
-.about {
-  padding: 0 0 210px;
-}
-
-.about :global(.container) {
-  display: grid;
-  gap: 160px;
-  padding-top: 56px;
-}
-
-.about p {
-  max-width: 760px;
-  margin-top: 13px;
-  color: var(--home-muted);
+  max-width: 440px;
+  gap: 16px;
   font-size: 14px;
-  line-height: 1.6;
 }
 
+.ctas a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 128px;
+  border: 1px solid transparent;
+  transition: 0.2s;
+  cursor: pointer;
+  width: fit-content;
+  font-weight: 500;
+}
+
+a.primary {
+  background: var(--text-primary);
+  color: var(--background);
+  gap: 8px;
+}
+
+a.secondary {
+  border-color: var(--button-secondary-border);
+}
+
+/* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-  .routeCard:hover,
-  .noteRow:hover {
-    background: #f3f3f1;
+  a.primary:hover {
+    background: var(--button-primary-hover);
+    border-color: transparent;
   }
-  .routeCard:hover {
-    border-color: var(--home-ink);
-  }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .routeCard,
-  .noteRow {
-    transition: none;
-  }
-}
-
-@media (max-width: 1080px) {
-  .hero :global(.container),
-  .materials :global(.container),
-  .about :global(.container) {
-    margin-inline: 24px;
-    width: auto;
+  a.secondary:hover {
+    background: var(--button-secondary-hover);
+    border-color: transparent;
   }
 }
 
 @media (max-width: 600px) {
-  .hero {
-    padding: 0 0 46px;
+  .main {
+    padding: 48px 24px;
   }
-  .hero :global(.container),
-  .materials :global(.container),
-  .about :global(.container) {
-    margin-inline: 20px;
+
+  .intro {
+    gap: 16px;
   }
-  .hero :global(.container) {
-    padding-top: 45px;
-    padding-bottom: 46px;
-    border-bottom: 0;
+
+  .intro h1 {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.92px;
   }
-  .hero h1 {
-    margin-top: 0;
-    font-size: 31px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    filter: invert();
   }
-  .hero p {
-    max-width: 320px;
-    margin-top: 15px;
-    font-size: 14px;
-    line-height: 1.55;
-  }
-  .hero span {
-    margin-top: 66px;
-    font-size: 9px;
-  }
-  .materials {
-    padding-bottom: 60px;
-  }
-  .materials :global(.container) {
-    padding-top: 0;
-    border-top: 0;
-  }
-  .sectionHeading h2 {
-    font-size: 19px;
-  }
-  .sectionHeading span {
-    display: none;
-  }
-  .routeLinks {
-    display: block;
-    margin-top: 25px;
-  }
-  .routeCard {
-    height: 230px;
-    padding: 24px 19px 31px;
-    grid-template-rows: 130px auto;
-  }
-  .notesRoute {
-    display: none;
-  }
-  .routeCard span {
-    font-size: 17px;
-  }
-  .routeDrawing {
-    height: 130px;
-  }
-  .noteList {
-    margin-top: 70px;
-  }
-  .noteRow {
-    min-height: 190px;
-    padding: 20px 0 27px;
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .noteRow time {
-    font-size: 9px;
-  }
-  .noteContent h3 {
-    margin-top: 8px;
-    font-size: 16px;
-    line-height: 1.3;
-  }
-  .noteContent p {
-    margin-top: 10px;
-    font-size: 12px;
-  }
-  .noteTags {
-    margin-top: 22px;
-    align-self: auto;
-    text-align: left;
-    font-size: 9px;
-  }
-  .about {
-    padding-bottom: 118px;
-  }
-  .about :global(.container) {
-    gap: 50px;
-    padding-top: 48px;
-  }
-  .about h2 {
-    font-size: 18px;
-  }
-  .about p {
-    max-width: 330px;
-    margin-top: 14px;
-    font-size: 13px;
+
+  .page {
+    --background: #000;
+    --foreground: #000;
+
+    --text-primary: #ededed;
+    --text-secondary: #999;
+
+    --button-primary-hover: #ccc;
+    --button-secondary-hover: #1a1a1a;
+    --button-secondary-border: #1a1a1a;
   }
 }
